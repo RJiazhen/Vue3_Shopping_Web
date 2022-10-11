@@ -11,4 +11,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  // npm run dev 启动时会自动打开浏览器，且设置默认路径
+  server: {
+    open: '/'
+  }
 })
