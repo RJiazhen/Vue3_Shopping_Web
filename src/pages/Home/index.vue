@@ -1,13 +1,29 @@
 <template>
   <div>
-    Home
+    <TypeNav /> <!-- 引入分类导航栏这个全局组件 -->
+    <!-- Home页面专用组件 -->
+    <ListContainer />
+    <Recommend />
+    <Rank />
+    <Like />
+    <Floor />
+    <Floor />
+    <Brand />
+    <!-- Home页面专用组件 -->
   </div>
 </template>
-
 <script lang="ts">
+// 引入组件
+import ListContainer from "@/pages/Home/ListContainer/index.vue";
+import Recommend from "@/pages/Home/Recommend/index.vue";
+import Rank from "@/pages/Home/Rank/index.vue";
+import Like from "@/pages/Home/Like/index.vue";
+import Floor from "@/pages/Home/Floor/index.vue";
+import Brand from "@/pages/Home/Brand/index.vue";
+
 export default {
   name: "Home",
+  // 注册组件
+  components: { ListContainer, Recommend, Rank, Like, Floor, Brand },
 };
 </script>
-<style lang="scss">
-</style>
