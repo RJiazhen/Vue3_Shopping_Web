@@ -1,25 +1,21 @@
 <script setup lang="ts">
-import Home from "@/pages/Home/index.vue";
-// import HelloWorld from "./components/HelloWorld.vue";
-// import TheWelcome from "./components/TheWelcome.vue";
+import Header from "@/components/Header/index.vue";
+import Footer from "@/components/Footer/index.vue";
 </script>
 
 <template>
+  <Header />
   <router-view></router-view>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main> -->
-  test
-  <Home></Home>
+  <Footer></Footer>
+  <!-- <Footer v-show="$route.meta.showFooter" /> -->
 </template>
 
-<style scoped>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 </style>
