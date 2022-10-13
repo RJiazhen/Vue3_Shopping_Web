@@ -1,8 +1,8 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container" :style="{'--h':h}">
-      <div class="sort">
+    <div class="container ">
+      <div class="sort focus-heigh">
         <div class="all-sort-list2">
           <div class="item" v-for="(c1, index) in categoryList" :key:number="c1.categoryId">
             <h3>
@@ -37,10 +37,10 @@ export default {
     console.log(this.h);
   },
   // h为该区域的高度
-  props:['h'],
+  props: ['h'],
   computed: {
     ...mapState({
-      categoryList: function(state:any):any{
+      categoryList: function (state: any): any {
         return state.home.categoryList
       }
     }),
@@ -49,28 +49,29 @@ export default {
 </script>
 <style lang="scss">
 .type-nav {
+
   .container {
     width: 1000px;
     margin: 0 auto;
-    display: flex;
     position: relative;
 
     .sort {
       position: absolute;
       left: 0;
-        height: calc(var(--h) - 20px);
-      width: 210px;
-        padding: 10px 0;
 
-      position: absolute;
-      background: #fafafa;
+      box-sizing: border-box;
+      width: 200px;
+      padding: 10px 0;
+
+      background: #fff;
       z-index: 999;
 
       .all-sort-list2 {
-        height: calc(var(--h) - 20px);
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
         .item {
           h3 {
             text-align: left;
@@ -83,7 +84,8 @@ export default {
 
             a {
               color: #333;
-              &:hover{
+
+              &:hover {
                 color: #EA4A36;
               }
             }
@@ -124,9 +126,10 @@ export default {
                   text-align: right;
                   padding: 3px 6px 0 0;
                   font-weight: 700;
-                    a:hover{
-                        color: #EA4A36;
-                      }
+
+                  a:hover {
+                    color: #EA4A36;
+                  }
 
                 }
 
@@ -144,9 +147,9 @@ export default {
                     margin-top: 5px;
                     border-left: 1px solid #ccc;
 
-                    a:hover{
-                        color: #EA4A36;
-                      }
+                    a:hover {
+                      color: #EA4A36;
+                    }
                   }
                 }
               }

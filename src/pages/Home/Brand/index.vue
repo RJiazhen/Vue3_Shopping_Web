@@ -47,7 +47,7 @@ export default {
   margin: 10px 0;
 
   .py-container {
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 
     .brand-list {
@@ -56,14 +56,16 @@ export default {
       background: #f7f7f7;
       line-height: 18px;
 
+      display: flex;
+      justify-content: space-between;
+
       .brand-item {
-        width: 120px;
-        float: left;
+        width: 10%;
         height: 37px;
+        border-left: 1px dotted #ccc;
 
         img {
-          border-left: 1px dotted #ccc;
-          padding: 0 10px;
+          width: 90%;
         }
 
         &:first-child {

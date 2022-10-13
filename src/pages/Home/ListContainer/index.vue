@@ -1,134 +1,164 @@
-<template lang="">
-<!--列表-->
-<div class="list-container">
-    <div class="sortList clearfix">
-        <div class="center">
-            <!--banner轮播-->
-            <div class="swiper-container" id="mySwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="./images/banner1.jpg" />
-                    </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
+<template>
+  <!--列表-->
+  <div class="list-container ">
+    <div class="sortList clearfix focus-heigh">
+      <div class="center">
+        <!--banner轮播-->
+        <swiper :modules="modules" :slides-per-view="1" :space-between="50" :pagination="{ clickable: true }"
+          @swiper="onSwiper" @slideChange="onSlideChange">
+          <swiper-slide>
+            <div class="slide-img focus-heigh"><img src="./images/banner1.jpg" /></div>
+          </swiper-slide>
+          <swiper-slide><img src="./images/banner2.jpg" /></swiper-slide>
+          <swiper-slide><img src="./images/banner3.jpg" /></swiper-slide>
+          <!-- 如果需要导航按钮 -->
+        </swiper>
+      </div>
+      <div class="right">
+        <div class="news">
+          <h4>
+            <em class="fl">京东快报</em>
+            <span class="fr tip">更多 ></span>
+          </h4>
+          <div class="clearix"></div>
+          <ul class="news-list unstyled">
+            <li>
+              <span class="highlight">热门</span><a>重新定义旗舰处理器，AMD锐龙9 7950X究竟有多强</a>
+            </li>
+            <li>
+              <span class="highlight">最新</span><a>备战开学季 全民半价购数码</a>
+            </li>
+            <li>
+              <span class="highlight">热评</span>备战开学季 全民半价购数码
+            </li>
+            <li>
+              <span class="highlight">HOT</span>备战开学季 全民半价购数码
+            </li>
+          </ul>
         </div>
-        <div class="right">
-            <div class="news">
-                <h4>
-                    <em class="fl">尚品汇快报</em>
-                    <span class="fr tip">更多 ></span>
-                </h4>
-                <div class="clearix"></div>
-                <ul class="news-list unstyled">
-                    <li>
-                        <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                    </li>
-                    <li>
-                        <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                    </li>
-                    <li>
-                        <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                    </li>
-                    <li>
-                        <span class="bold">[公告]</span>备战开学季 全民半价购数码
-                    </li>
-                    <li>
-                        <span class="bold">[特惠]</span>备战开学季 全民半价购数码
-                    </li>
-                </ul>
-            </div>
-            <ul class="lifeservices">
-                <li class=" life-item ">
-                    <i class="list-item"></i>
-                    <span class="service-intro">话费</span>
-                </li>
-                <li class=" life-item ">
-                    <i class="list-item"></i>
-                    <span class="service-intro">机票</span>
-                </li>
-                <li class=" life-item ">
-                    <i class="list-item"></i>
-                    <span class="service-intro">电影票</span>
-                </li>
-                <li class=" life-item ">
-                    <i class="list-item"></i>
-                    <span class="service-intro">游戏</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">彩票</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">加油站</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">酒店</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">火车票</span>
-                </li>
-                <li class=" life-item ">
-                    <i class="list-item"></i>
-                    <span class="service-intro">众筹</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">理财</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">礼品卡</span>
-                </li>
-                <li class=" life-item">
-                    <i class="list-item"></i>
-                    <span class="service-intro">白条</span>
-                </li>
-            </ul>
-            <div class="ads">
-                <img src="./images/ad1.png" />
-            </div>
+        <ul class="lifeservices">
+          <li class=" life-item ">
+            <i class="list-item"></i>
+            <span class="service-intro">话费</span>
+          </li>
+          <li class=" life-item ">
+            <i class="list-item"></i>
+            <span class="service-intro">机票</span>
+          </li>
+          <li class=" life-item ">
+            <i class="list-item"></i>
+            <span class="service-intro">电影票</span>
+          </li>
+          <li class=" life-item ">
+            <i class="list-item"></i>
+            <span class="service-intro">游戏</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">彩票</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">加油站</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">酒店</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">火车票</span>
+          </li>
+          <li class=" life-item ">
+            <i class="list-item"></i>
+            <span class="service-intro">众筹</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">理财</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">礼品卡</span>
+          </li>
+          <li class=" life-item">
+            <i class="list-item"></i>
+            <span class="service-intro">白条</span>
+          </li>
+        </ul>
+        <div class="ads">
+          <img src="./images/ad1.png" />
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 <script>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Pagination } from "swiper";
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 export default {
   name: "ListContainer",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Pagination] // 添加该轮播图相关的组件
+    };
+  },
 };
 </script>
 <style lang="scss">
 .list-container {
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
 
   .sortList {
-    height: 464px;
-    padding-left: 210px;
+    padding-left: 200px;
+    display: flex;
+    flex-wrap: nowrap;
 
     .center {
       box-sizing: border-box;
-      width: 740px;
+      width: 590px;
       height: 100%;
-      padding: 5px;
-      float: left;
+
+      margin-left: 10px;
+
+      .slide-img {
+        width: 590px;
+
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+
+        }
+      }
+
     }
 
     .right {
-      float: left;
-      width: 250px;
+      width: 190px;
+      height: 100%;
+      margin-left: 10px;
+      background-color: #fff;
 
       .news {
         border: 1px solid #e4e4e4;
-        margin-top: 5px;
+        height: 145px;
 
         h4 {
           border-bottom: 1px solid #e4e4e4;
@@ -153,13 +183,27 @@ export default {
           padding: 5px 15px;
           line-height: 26px;
 
-          .bold {
-            font-weight: 700;
+          li {
+            height: 25px;
+            width: 170px;
+
+            // 多的文字变成省略号
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            .highlight {
+              margin-right: 5px;
+              background-color: #FDEEED;
+              color: #E62588;
+              border: #FDEEED 3px solid;
+            }
           }
         }
       }
 
       .lifeservices {
+        height: 200px;
         border-right: 1px solid #e4e4e4;
         overflow: hidden;
         display: flex;
@@ -177,97 +221,104 @@ export default {
 
           .list-item {
             background-image: url(./images/icons.png);
-            width: 61px;
+            width: 100%;
             height: 40px;
             display: block;
           }
 
           .service-intro {
             line-height: 22px;
-            width: 60px;
+            width: 100%;
             display: block;
           }
 
           &:nth-child(1) {
             .list-item {
-              background-position: 0px -5px;
+              background-position: -5px -5px;
             }
           }
 
           &:nth-child(2) {
             .list-item {
-              background-position: -62px -5px;
+              background-position: -70px -5px;
             }
           }
 
           &:nth-child(3) {
             .list-item {
-              background-position: -126px -5px;
+              background-position: -135px -5px;
             }
           }
 
           &:nth-child(4) {
             .list-item {
-              background-position: -190px -5px;
+              background-position: -197px -5px;
             }
           }
 
           &:nth-child(5) {
             .list-item {
-              background-position: 0px -76px;
+              background-position: -5px -76px;
             }
           }
 
           &:nth-child(6) {
             .list-item {
-              background-position: -62px -76px;
+              background-position: -70px -76px;
             }
           }
 
           &:nth-child(7) {
             .list-item {
-              background-position: -126px -76px;
+              background-position: -135px -76px;
             }
           }
 
           &:nth-child(8) {
             .list-item {
-              background-position: -190px -76px;
+              background-position: -197px -76px;
             }
           }
 
           &:nth-child(9) {
             .list-item {
-              background-position: 0px -146px;
+              background-position: -5px -146px;
             }
           }
 
           &:nth-child(10) {
             .list-item {
-              background-position: -62px -146px;
+              background-position: -70px -146px;
             }
           }
 
           &:nth-child(11) {
             .list-item {
-              background-position: -126px -146px;
+              background-position: -135px -142px;
             }
           }
 
           &:nth-child(12) {
             .list-item {
-              background-position: -190px -146px;
+              background-position: -200px -142px;
             }
           }
         }
       }
 
       .ads {
+        width: 100%;
+        height: 125px;
         margin-top: 5px;
+        overflow: hidden;
 
         img {
           opacity: 0.8;
           transition: all 400ms;
+          width: 95%;
+          height: 100%;
+          object-fit: cover;
+
 
           &:hover {
             opacity: 1;

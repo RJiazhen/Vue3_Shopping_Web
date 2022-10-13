@@ -96,7 +96,7 @@ export default {
   margin-top: 15px;
 
   .py-container {
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 
     .title {
@@ -113,7 +113,7 @@ export default {
         float: right;
 
         .nav-tabs {
-          margin: 10px 0 0;
+          margin: 20px 0 0;
           display: inline-block;
 
           li {
@@ -123,7 +123,7 @@ export default {
             a {
               padding-top: 1px;
               font-weight: 400;
-              background-color: #fff;
+              // background-color: #fff;
 
               &::after {
                 content: "|";
@@ -138,48 +138,55 @@ export default {
                 }
               }
             }
-
-            &.active {
-              a {
-                color: #e1251b;
-              }
-            }
           }
         }
       }
     }
 
     .tab-content {
+      width: 1000px;
       border-top: 2px solid #c81623;
       border-bottom: 1px solid #e4e4e4;
 
       .tab-pane {
         .floor-1 {
+          background-color: #fff;
           height: 360px;
           display: flex;
 
           .blockgary {
-            width: 210px;
+            width: 180px;
             height: 100%;
-            background: #f7f7f7;
+
+            // position: relative;
 
             .jd-list {
+
               padding: 15px 0;
               overflow: hidden;
 
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+
+              padding: 0 4px;
+
               li {
-                list-style-type: none;
-                float: left;
-                width: 40%;
-                margin: 0 10px;
+                width: 45%;
                 border-bottom: 1px solid #e4e4e4;
                 text-align: center;
                 line-height: 26px;
+
+                &:nth-child(odd) {
+                  margin: 0 4px 0 0;
+                }
               }
             }
 
             img {
               width: 100%;
+              transform: translateY(30px);
+
             }
           }
 
@@ -189,25 +196,28 @@ export default {
           }
 
           .split {
-            width: 220px;
+            width: 160px;
             height: 100%;
             position: relative;
 
             .floor-x-line {
-              position: absolute;
               background: #e4e4e4;
-              width: 220px;
+              width: 160px;
               height: 1px;
-              top: 180px;
+
+              position: absolute;
+              top: 50%;
+              left: 0;
             }
 
             .floor-conver-pit {
-              width: 100%;
+              width: 160px;
               height: 50%;
+
 
               img {
                 width: 100%;
-                height: 100%;
+                height: auto;
                 transition: all 400ms;
 
                 &:hover {
@@ -218,7 +228,17 @@ export default {
           }
 
           .center {
+            width: 170px;
             border: 1px solid #e4e4e4;
+            img {
+                width: 100%;
+                height: auto;
+                transition: all 400ms;
+
+                &:hover {
+                  opacity: 0.8;
+                }
+              }
           }
         }
       }

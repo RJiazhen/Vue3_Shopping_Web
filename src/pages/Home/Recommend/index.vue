@@ -33,17 +33,17 @@ export default {
 <style lang="scss">
 .today-recommend {
   .py-container {
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 
     .recommend {
-      height: 165px;
+      height: 140px;
       background-color: #eaeaea;
       margin: 10px 0;
       display: flex;
 
       .clock {
-        width: 16.67%;
+        width: 17%;
         background-color: #5c5251;
         color: #fff;
         font-size: 18px;
@@ -62,7 +62,7 @@ export default {
       }
 
       .banner {
-        width: 20.83%;
+        width: 20.75%;
 
         img {
           width: 100%;

@@ -4,7 +4,7 @@
     <div class="py-container">
       <div class="title">
         <h3 class="fl">猜你喜欢</h3>
-        <a href="javascript:;" class="fr tip changeBnt">换一换</a>
+        <a href="javascript:;" class="fr tip changeBnt">&nbsp;&nbsp;换一换</a>
       </div>
       <div class="bd">
         <ul class="favourate">
@@ -63,7 +63,7 @@ export default {};
   margin-top: 15px;
 
   .py-container {
-    width: 1200px;
+    width: 1000px;
     margin: 0 auto;
 
     .title {
@@ -78,40 +78,50 @@ export default {};
       .fr {
         float: right;
         background-image: url(./images/icons.png);
-        width: 66px;
+        background-position: 182px -105px;
+
+        width: 70px;
         height: 25px;
-        background-position: 182px -104px;
-        line-height: 30px;
+        line-height: 25px;
+        text-align: start;
         font-size: 12px;
         font-weight: 400;
         color: #666;
-        text-decoration: none;
+
+        span {
+          display: block;
+          height: 25px;
+          line-height: 30px;
+        }
       }
     }
 
     .bd {
       .favourate {
+        width: 100%;
+        box-sizing: border-box;
         border: 1px solid #e4e4e4;
         overflow: hidden;
-        padding: 0 10px;
-        box-sizing: border-box;
+
         display: flex;
+        justify-content: space-between;
 
         li {
           height: 250px;
-          margin: 0 -1px;
+          // margin: 0 -1px;
           overflow: hidden;
           background: #fff;
-          position: relative;
           width: 16.667%;
+
           display: flex;
           flex-direction: column;
+          justify-content: center;
           align-items: center;
+
           cursor: pointer;
 
           img {
-            width: 142px;
-            height: 142px;
+            width: 90%;
             transition: all 400ms;
 
             &:hover {
@@ -121,12 +131,14 @@ export default {};
           }
 
           .like-text {
-            padding: 0;
-            width: 142px;
+            width: 100%;
+            box-sizing: border-box;
             border-right: 1px solid #e4e4e4;
 
             p {
-              margin: 5px 0;
+              width: 95%;
+              text-align: center;
+              margin: 5px auto;
             }
 
             h3 {

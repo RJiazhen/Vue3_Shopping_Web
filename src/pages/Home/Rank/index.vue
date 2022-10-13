@@ -91,7 +91,7 @@ export default {
 </script>
 <style lang="scss">
 .rank {
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
 
   .tab {
@@ -143,33 +143,37 @@ export default {
 
   .content {
     overflow: hidden;
-    padding: 10px;
 
     ul {
       li {
         overflow: hidden;
         list-style: none;
-        line-height: 18px;
+        width: 1000px;
+
+        display: flex;
+        justify-content: space-between;
 
         .img-item {
           border: 1px solid #e1251b;
-          width: 269px;
+          width: 24%;
           float: left;
           overflow: hidden;
-          margin: 0 12px 10px;
           background: #fff;
 
           .tab-pic {
-            width: 230px;
+            width: 90%;
             height: 210px;
             overflow: hidden;
             text-align: center;
-            margin: 5px auto 18px;
+            margin: 10px auto 18px;
 
             a {
+              display: block;
+              overflow: hidden;
+
               img {
-                width: 200px;
-                height: 200px;
+                width: 100%;
+                height: 100%;
               }
             }
           }
@@ -182,7 +186,6 @@ export default {
               line-height: 28px;
               overflow: hidden;
               margin: 0 auto;
-              padding-left: 10px;
 
               a {
                 color: #333;
