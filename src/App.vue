@@ -4,7 +4,7 @@ import Footer from "@/components/Footer/index.vue";
 </script>
 
 <template>
-  <Header />
+  <Header style="margin-bottom: 10px;"></Header>
   <router-view></router-view>
   <Footer></Footer>
   <!-- <Footer v-show="$route.meta.showFooter" /> -->
@@ -17,5 +17,6 @@ import Footer from "@/components/Footer/index.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #f4f4f4;
 }
 </style>
