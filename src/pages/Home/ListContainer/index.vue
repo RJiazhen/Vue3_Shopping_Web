@@ -3,16 +3,7 @@
   <div class="list-container ">
     <div class="sortList clearfix focus-heigh">
       <div class="center">
-        <!--banner轮播-->
-        <swiper :modules="modules" :slides-per-view="1" :space-between="50" :pagination="{ clickable: true }"
-          @swiper="onSwiper" @slideChange="onSlideChange">
-          <swiper-slide>
-            <div class="slide-img focus-heigh"><img src="./images/banner1.jpg" /></div>
-          </swiper-slide>
-          <swiper-slide><img src="./images/banner2.jpg" /></swiper-slide>
-          <swiper-slide><img src="./images/banner3.jpg" /></swiper-slide>
-          <!-- 如果需要导航按钮 -->
-        </swiper>
+        <mySwiper :banner-items="imgPaths"></mySwiper>
       </div>
       <div class="right">
         <div class="news">
@@ -93,33 +84,33 @@
     </div>
   </div>
 </template>
-<script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Pagination } from "swiper";
-import 'swiper/css';
-import 'swiper/css/pagination';
 
-export default {
-  name: "ListContainer",
-  components: {
-    Swiper,
-    SwiperSlide,
+<script setup lang="ts">
+import mySwiper from "@/components/my-swiper/index.vue"
+const imgPaths = [
+  {
+    img:
+      'src/pages/Home/listContainer/images/banner1.jpg',
+    link: 'home'
   },
-  setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log('slide change');
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-      modules: [Pagination] // 添加该轮播图相关的组件
-    };
+  {
+    img:
+      'src/pages/Home/listContainer/images/banner2.jpg',
+    link: 'home'
   },
-};
+  {
+    img:
+      'src/pages/Home/listContainer/images/banner3.jpg',
+    link: 'home'
+  },
+  {
+    img:
+      'src/pages/Home/listContainer/images/banner4.jpg',
+    link: 'home'
+  }
+]
 </script>
+
 <style lang="scss">
 .list-container {
   width: 1000px;
