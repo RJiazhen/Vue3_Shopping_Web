@@ -133,32 +133,35 @@
     </div>
   </header>
 </template>
-<script lang="ts">
-export default {
-  data() {
-    return {
-      searchText: "",
-    };
-  },
-  methods: {
-    toSearch() {
-      this.$router.push({
-        name: "search", //在前面加上问号后，keyword这个params可传可不传
-        params: {
-          keyword: this.searchText || undefined,
-        },
-        query: {
-          b: this.searchText.toUpperCase(),
-        },
-        // component: Search,
-      });
-    },
-  },
-};
+
+<script setup lang="ts">
+import { ref } from "vue"
+import {useRouter, useRoute} from "vue-router"
+
+const router = useRouter()
+const route = useRoute()
+
+let searchText = ref("");
+
+const toSearch = function (event: unknown) {
+  console.log('router:', router);
+  console.log('route:', route);
+
+  router.push({
+    path: "/search",
+    query: {...route.query}
+  })
+  console.log('search');
+  console.log(searchText.value);
+  // component: Search,
+}
+
 </script>
 <style lang="scss">
 .header {
-  & > .top {
+  background-color: #fff;
+
+  &>.top {
     display: flex;
     justify-content: center;
 
@@ -187,7 +190,7 @@ export default {
         span {
           padding: 0 10px;
 
-          & + span {
+          &+span {
             border-left: 1px solid #b3aeae;
           }
         }
@@ -200,7 +203,7 @@ export default {
     }
   }
 
-  & > .bottom {
+  &>.bottom {
     height: 140px;
     width: 1000px;
 
@@ -223,6 +226,7 @@ export default {
 
       .search-n-cart {
         display: flex;
+
         .searchArea {
           .searchForm {
             overflow: hidden;
@@ -265,13 +269,14 @@ export default {
               flex-wrap: nowrap;
 
               li {
-                & + li {
+                &+li {
                   margin-left: 8px;
                 }
               }
             }
           }
         }
+
         .cart {
           width: 130px;
           height: 35px;
@@ -283,6 +288,7 @@ export default {
 
           background-color: #fff;
           border: #eeeeee 1px solid;
+
           el-icon {
             margin-right: 15px;
             position: relative;
@@ -305,14 +311,18 @@ export default {
           }
         }
       }
+
       .short-cut {
         margin-top: 20px;
+
         ul {
           display: flex;
           flex-wrap: nowrap;
+
           li {
             font-size: 15px;
-            & + li {
+
+            &+li {
               margin-left: 10px;
             }
           }
