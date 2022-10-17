@@ -4,7 +4,7 @@
     <div class="container ">
       <div class="sort focus-heigh">
         <div class="all-sort-list2">
-          <div class="item" v-for="(c1, index) in categoryList" :key:number="c1.categoryId">
+          <div class="item" v-for="(c1, index) in home.categoryList" :key:number="c1.categoryId">
             <h3>
               <a href="">{{c1.categoryName}}</a>
             </h3>
@@ -28,25 +28,24 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { mapState, mapActions } from "vuex";
-export default {
-  name: "TypeNav",
-  mounted() {
-    this.$store.dispatch("categoryList");
-    console.log(this.h);
-  },
-  // h为该区域的高度
-  props: ['h'],
-  computed: {
-    ...mapState({
-      categoryList: function (state: any): any {
-        return state.home.categoryList
-      }
-    }),
-  },
-};
+
+<script setup lang="ts">
+import { onBeforeMount, reactive } from "vue"
+import { useHome } from "@/stores/home"
+
+const home = useHome()
+// home.test()
+// 轮播图
+
+// 挂载时获取轮播图内容
+onBeforeMount(() => {
+  home.getCategoryList()
+  console.log('---------');
+})
+console.log(`after  ${home.categoryList}`);
+
 </script>
+
 <style lang="scss">
 .type-nav {
 
