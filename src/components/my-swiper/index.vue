@@ -7,9 +7,9 @@
     }" :pagination="{
       clickable:true
     }" :loop="true" :navigation="true">
-      <swiper-slide v-for="(item, index) in props.bannerItems" :key="index">
+      <swiper-slide v-for="(carouselItem, index) in props.bannerItems" :key="index">
         <div>
-          <a :href="item.link"><img :src="item.img" /></a>
+          <a :href="carouselItem.url"><img :src="carouselItem.imgUrl" /></a>
         </div>
       </swiper-slide>
     </swiper>
@@ -17,9 +17,6 @@
 </template>
 
 <script setup lang="ts">
-
-import { defineProps } from "vue"
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Pagination, Navigation } from "swiper";
 
@@ -28,8 +25,10 @@ import "swiper/css/autoplay"
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+let pagination:any
+
 const props = defineProps<{
-  bannerItems: object[] //接受图片地址
+  bannerItems: carouselItem[] //接受图片地址
 }>()
 
 // 轮播图相关的组件

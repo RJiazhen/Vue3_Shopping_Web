@@ -3,7 +3,7 @@
   <div class="list-container ">
     <div class="sortList clearfix focus-heigh">
       <div class="center">
-        <mySwiper :banner-items="imgPaths"></mySwiper>
+        <mySwiper :banner-items="home.bannerList"></mySwiper>
       </div>
       <div class="right">
         <div class="news">
@@ -87,28 +87,12 @@
 
 <script setup lang="ts">
 import mySwiper from "@/components/my-swiper/index.vue"
-const imgPaths = [
-  {
-    img:
-      'src/pages/Home/listContainer/images/banner1.jpg',
-    link: 'home'
-  },
-  {
-    img:
-      'src/pages/Home/listContainer/images/banner2.jpg',
-    link: 'home'
-  },
-  {
-    img:
-      'src/pages/Home/listContainer/images/banner3.jpg',
-    link: 'home'
-  },
-  {
-    img:
-      'src/pages/Home/listContainer/images/banner4.jpg',
-    link: 'home'
-  }
-]
+import { useHome } from "@/stores/home"
+
+// 获取轮播图数据
+const home = useHome()
+home.getBannerList()
+
 </script>
 
 <style lang="scss">

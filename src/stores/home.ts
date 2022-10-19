@@ -1,4 +1,4 @@
-import { reqCategoryList } from '@/api/index'
+import { reqCategoryList, reqGetBannerList, reqGetFloorList } from '@/api/index'
 import { defineStore } from "pinia"
 import { reactive, ref } from "vue"
 
@@ -10,14 +10,26 @@ export const useHome = defineStore('home', () => {
     let result: any = await reqCategoryList();
     if (result.code === 200) {
       this.$patch(this.categoryList = result.data)
-      console.log('await:', this);
     }
-    console.log('store: ', categoryList);
   }
 
   // 轮播图数据
-
+  let bannerList = reactive([])
+  async function getBannerList(this: any) {
+    let result: any = await reqGetBannerList();
+    if (result.code === 200) {
+      this.$patch(this.bannerList = result.data)
+    }
+  }
   // Floor数据
-  return { categoryList, getCategoryList }
+  let floorList = reactive([])
+  async function getFloorList(this: any) {
+    let result: any = await reqGetFloorList();
+    if (result.code === 200) {
+      this.$patch(this.floorList = result.data)
+    }
+  }
+
+  return { categoryList, getCategoryList, bannerList, getBannerList, floorList, getFloorList }
 })
 

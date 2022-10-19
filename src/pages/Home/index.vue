@@ -6,13 +6,12 @@
     <Recommend />
     <Rank />
     <Like />
-    <Floor />
-    <Floor />
+    <Floor v-for="(floor , index) in home.floorList" :key="index" :floor-info="floor"/>
     <Brand />
     <!-- Home页面专用组件 -->
   </div>
 </template>
-<script lang="ts">
+<script setup lang="ts">
 // 引入组件
 import TypeNav from "./TypeNav/index.vue"
 import ListContainer from "./ListContainer/index.vue";
@@ -22,16 +21,14 @@ import Like from "./Like/index.vue";
 import Floor from "./Floor/index.vue";
 import Brand from "./Brand/index.vue";
 
-export default {
-  name: "Home",
-  data() {
-    return {
-    }
-  },
-  // 注册组件
-  components: { ListContainer, Recommend, Rank, Like, Floor, Brand, TypeNav },
-};
+// 引入home获取floor数据
+import { useHome } from "@/stores/home"
+
+const home = useHome()
+home.getFloorList()
+
 </script>
+
 <style lang="scss">
 .focus-heigh {
   height: 470px;

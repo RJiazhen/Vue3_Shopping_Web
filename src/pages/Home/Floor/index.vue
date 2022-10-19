@@ -3,69 +3,52 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
+        <!-- 楼层名称 -->
+        <h3 class="fl">{{props.floorInfo.name}}</h3>
+        <!-- 楼层顶部右侧标签 -->
         <div class="fr">
           <ul class="nav-tabs clearfix">
-            <li class="active">
-              <a href="#tab1" data-toggle="tab">热门</a>
-            </li>
-            <li>
-              <a href="#tab2" data-toggle="tab">大家电</a>
-            </li>
-            <li>
-              <a href="#tab3" data-toggle="tab">生活电器</a>
-            </li>
-            <li>
-              <a href="#tab4" data-toggle="tab">厨房电器</a>
-            </li>
-            <li>
-              <a href="#tab5" data-toggle="tab">应季电器</a>
-            </li>
-            <li>
-              <a href="#tab6" data-toggle="tab">空气/净水</a>
-            </li>
-            <li>
-              <a href="#tab7" data-toggle="tab">高端电器</a>
+            <li class="active" v-for="(tab, index) in props.floorInfo.navList" :key="index">
+              <a :href="tab.url" data-toggle="tab">{{tab.text}}</a>
             </li>
           </ul>
         </div>
       </div>
+
       <div class="tab-content">
         <div class="tab-pane">
           <div class="floor-1">
+            <!-- 最左侧栏位 -->
             <div class="blockgary">
               <ul class="jd-list">
-                <li>节能补贴</li>
-                <li>4K电视</li>
-                <li>空气净化器</li>
-                <li>IH电饭煲</li>
-                <li>滚筒洗衣机</li>
-                <li>电热水器</li>
+                <li v-for="(keyword, index) in props.floorInfo.keywords" :key="index">{{keyword}}</li>
               </ul>
-              <img src="./images/floor-1-1.png" />
+              <img :src="props.floorInfo.imgUrl" />
             </div>
+            <!-- 轮播图 -->
             <div class="floorBanner">
-              <mySwiper :banner-items="imgPaths"></mySwiper>
+              <mySwiper :banner-items="props.floorInfo.carouselList"></mySwiper>
             </div>
+            <!-- 右侧区域 -->
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-2.png" />
+                <img :src="props.floorInfo.recommendList[0]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-3.png" />
+                <img :src="props.floorInfo.recommendList[1]" />
               </div>
             </div>
             <div class="split center">
-              <img src="./images/floor-1-4.png" />
+              <img :src="props.floorInfo.bigImg" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-5.png" />
+                <img :src="props.floorInfo.recommendList[2]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-6.png" />
+                <img :src="props.floorInfo.recommendList[3]" />
               </div>
             </div>
           </div>
@@ -76,23 +59,22 @@
 </template>
 <script setup lang="ts">
 import mySwiper from "@/components/my-swiper/index.vue"
-const imgPaths = [
-  {
-    img:
-      'src/pages/Home/floor/images/floor-1-b01.png',
-    link: 'home'
-  },
-  {
-    img:
-      'src/pages/Home/floor/images/floor-1-b02.png',
-    link: 'home'
-  },
-  {
-    img:
-      'src/pages/Home/floor/images/floor-1-b03.png',
-    link: 'home'
-  },
-]
+
+interface floorInfo {
+  id: string,
+  name: string,
+  keywords: Array<string>,
+  imgUrl: string,
+  navList: Array<object>,
+  recommendList: Array<string>,
+  bigImg: string,
+  carouselList: Array<carouselItem>,
+}
+
+const props = defineProps<{
+  floorInfo: floorInfo //接受图片地址
+}>()
+
 </script>
 <style lang="scss">
 .floor {
