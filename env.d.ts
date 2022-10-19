@@ -5,3 +5,10 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+// 轮播图数据类型
+interface carouselItem {
+  id: string,
+  imgUrl: string,
+  url: string
+}

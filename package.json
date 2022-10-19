@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
     "axios": "^1.1.2",
+    "mockjs": "^1.1.0",
     "pinia": "^2.0.23",
     "swiper": "^8.4.3",
     "vue": "^3.2.38",

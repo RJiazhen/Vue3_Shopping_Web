@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "imgUrl": "src/pages/Home/ListContainer/images/banner1.jpg",
+    "url": "#"
+  },
+  {
+    "id": "2",
+    "imgUrl": "src/pages/Home/ListContainer/images/banner2.jpg",
+    "url": "#"
+  },
+  {
+    "id": "3",
+    "imgUrl": "src/pages/Home/ListContainer/images/banner3.jpg",
+    "url": "#"
+  },
+  {
+    "id": "4",
+    "imgUrl": "src/pages/Home/ListContainer/images/banner4.jpg",
+    "url": "#"
+  }
+]
