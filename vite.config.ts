@@ -9,14 +9,14 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, './src'),
     }
   },
   // npm run dev 启动时会自动打开浏览器，且设置默认路径
   server: {
     host: '127.0.0.1',
     port: 3000,
-    open: '/',
+    open: '/search',
     // 配置代理跨域
     proxy: {
       '/api': {

@@ -8,16 +8,19 @@
   ],
   "compilerOptions": {
     "strict": false,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
       ]
-    }
+    },
+    "types": [
+      "node"
+    ]
   },
   "references": [
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
 }
