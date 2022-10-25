@@ -4,11 +4,13 @@
     <div class="container ">
       <div class="sort focus-heigh">
         <div class="all-sort-list2">
-          <div class="item" v-for="(c1, index) in home.categoryList" :key:number="c1.categoryId">
+          <div class="item" v-for="(c1, index) in home.categoryList" :key="c1.categoryId"
+            v-on:mouseenter="mouseEnter(c1.categoryId)" v-on:mouseleave="mouseLeave()">
             <h3>
               <a href="">{{c1.categoryName}}</a>
             </h3>
-            <div class="item-list clearfix">
+            <div class="item-list clearfix" v-show="hoverId === c1.categoryId"
+              v-on:mouseenter="mouseEnter(c1.categoryId)" v-on:mouseleave="mouseLeave()">
               <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
@@ -28,21 +30,27 @@
     </div>
   </div>
 </template>
-
+src/pages/Home/TypeNav/index.vue
 <script setup lang="ts">
-import { onBeforeMount, reactive } from "vue"
+import { onBeforeMount, ref } from "vue"
 import { useHome } from "@/stores/home"
+import _ from "lodash"
 
 const home = useHome()
-// home.test()
-// 轮播图
 
 // 挂载时获取轮播图内容
 onBeforeMount(() => {
   home.getCategoryList()
-  console.log('---------');
 })
-console.log(`after  ${home.categoryList}`);
+
+// 鼠标悬停显示菜单
+let hoverId = ref(0)
+const mouseEnter = _.debounce((categoryId: number) => {
+  hoverId.value = categoryId
+}, 100)
+const mouseLeave = _.debounce(() => {
+  hoverId.value = 0
+}, 100)
 
 </script>
 
@@ -72,6 +80,7 @@ console.log(`after  ${home.categoryList}`);
         justify-content: space-between;
 
         .item {
+
           h3 {
             text-align: left;
             line-height: 25px;
@@ -91,10 +100,9 @@ console.log(`after  ${home.categoryList}`);
           }
 
           .item-list {
-            display: none;
             position: absolute;
             top: 0;
-            left: 210px;
+            left: 200px;
 
             width: 734px;
             min-height: var(--h);
@@ -155,11 +163,11 @@ console.log(`after  ${home.categoryList}`);
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover {
+          //   .item-list {
+          //     display: block;
+          //   }
+          // }
         }
       }
     }
