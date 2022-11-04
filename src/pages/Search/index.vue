@@ -48,6 +48,11 @@ import Good from "./Good/index.vue"
 import Pagination from "./Pagination/index.vue"
 import HotSaleGood from "./HotSaleGood/index.vue"
 
+import {useSearch} from "@/stores/search"
+
+// 打开页面后执行获取搜索结果
+const search = useSearch()
+search.getSearchResult()
 
 </script>
 <style lang="scss">
