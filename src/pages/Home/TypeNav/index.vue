@@ -3,22 +3,23 @@
   <div class="type-nav">
     <div class="container ">
       <div class="sort focus-heigh">
-        <div class="all-sort-list2">
+        <div class="all-sort-list2" @click="toSearch">
+          <!-- 一级分类 -->
           <div class="item" v-for="(c1, index) in home.categoryList" :key="c1.categoryId"
             v-on:mouseenter="mouseEnter(c1.categoryId)" v-on:mouseleave="mouseLeave()">
             <h3>
-              <a href="">{{c1.categoryName}}</a>
+              <a :data-categoryname="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
             </h3>
             <div class="item-list clearfix" v-show="hoverId === c1.categoryId"
               v-on:mouseenter="mouseEnter(c1.categoryId)" v-on:mouseleave="mouseLeave()">
               <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
-                    <a href="">{{c2.categoryName}}</a>
+                    <a :data-categoryname="c1.categoryName" :data-category2Id="c2.categoryId">{{ c2.categoryName }}</a>
                   </dt>
                   <dd>
                     <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{c3.categoryName}}</a>
+                      <a :data-categoryname="c1.categoryName" :data-category3Id="c3.categoryId">{{ c3.categoryName }}</a>
                     </em>
                   </dd>
                 </dl>
@@ -35,6 +36,7 @@ src/pages/Home/TypeNav/index.vue
 import { onBeforeMount, ref } from "vue"
 import { useHome } from "@/stores/home"
 import _ from "lodash"
+import {useRoute, useRouter} from "vue-router"
 
 const home = useHome()
 
@@ -51,6 +53,36 @@ const mouseEnter = _.debounce((categoryId: number) => {
 const mouseLeave = _.debounce(() => {
   hoverId.value = 0
 }, 100)
+
+// 跳转到Search路由
+const router = useRouter()
+const route = useRoute()
+function toSearch(event) {
+  let targetNode = event.target;
+  console.log(targetNode.dataset);
+  let { categoryname, category1id, category2id, category3id } =
+    targetNode.dataset;
+  // 只有有categoryname属性才是a标签，才执行后续的跳转
+  if (categoryname) {
+    var locations = {
+      name: "search",
+      query: { categoryName: categoryname },
+    };
+    // 判断是哪一级别的a标签，并且携带对应的categoryid参数
+    if (category1id) {
+      locations.query.category1Id = category1id;
+    } else if (category2id) {
+      locations.query.category2Id = category2id;
+    } else {
+      locations.query.category3Id = category3id;
+    }
+    //点击商品分类按钮的时候,如果路径当中携带params参数,需要合并传递出去
+    if (route.params.keyword) {
+      locations.params = route.params;
+    }
+    router.push(locations);
+  }
+}
 
 </script>
 
