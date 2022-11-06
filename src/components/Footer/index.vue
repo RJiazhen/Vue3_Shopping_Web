@@ -57,10 +57,10 @@
         <div class="footerItem">
           <h4>京东自营覆盖区县</h4>
           <p>京东已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务</p>
-          <route-link>查看详情<el-icon>
+          <router-link to="/">查看详情<el-icon>
               <ArrowRight style="width: 10px;height: 10px;"/>
             </el-icon>
-          </route-link>
+          </router-link>
         </div>
       </div>
       <div class="copyright">
