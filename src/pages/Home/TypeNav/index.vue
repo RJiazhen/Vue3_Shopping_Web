@@ -38,7 +38,7 @@
 </template>
 src/pages/Home/TypeNav/index.vue
 <script setup lang="ts">
-import { onBeforeMount, ref, onMounted } from "vue"
+import { onBeforeMount, ref, onMounted, watch } from "vue"
 import { useHome } from "@/stores/home"
 import _ from "lodash"
 import { useRoute, useRouter } from "vue-router"
@@ -66,12 +66,21 @@ const showText = computed(() => {
 
 // 控制一级菜单是否显示
 let showTypeNav = ref(true)
-onMounted(async () => {
+// 使用<router-link>跳转时不会触发onMounted和onActivated周期钩子，先使用watch，后续再优化
+watch(route, async () => {
   // 注意，在onMounted时router还没处理完初始导航，所以route.path会是默认的"/"
   // 这里使用isReady()等处理完初始导航后再进行后续的处理
-  await router.isReady()
-  showTypeNav.value = route.path !== '/' ? false : true
+  showTypeNav.value = route.path != '/' ? false : true
 })
+
+// onMounted(async () => {
+//   // 注意，在onMounted时router还没处理完初始导航，所以route.path会是默认的"/"
+//   // 这里使用isReady()等处理完初始导航后再进行后续的处理
+//   console.log('mounted');
+//   console.log(route.path);
+//   await router.isReady()
+//   showTypeNav.value = route.path != '/' ? false : true
+// })
 
 // 鼠标进入时显示一级菜单
 const toShowTypeNav = () => {
