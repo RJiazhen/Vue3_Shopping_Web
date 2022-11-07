@@ -6,8 +6,7 @@ import Footer from "@/components/Footer/index.vue";
 <template>
   <Header style="margin-bottom: 10px;"></Header>
   <router-view></router-view>
-  <Footer></Footer>
-  <!-- <Footer v-show="$route.meta.showFooter" /> -->
+  <Footer v-show="$route.meta.showFooter"></Footer>
 </template>
 
 <style>
