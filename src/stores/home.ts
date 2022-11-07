@@ -1,6 +1,6 @@
-import { reqCategoryList, reqGetBannerList, reqGetFloorList } from '@/api/index'
 import { defineStore } from "pinia"
 import { reactive, ref } from "vue"
+import { reqCategoryList, reqGetBannerList, reqGetFloorList } from '@/api/index'
 
 export const useHome = defineStore('home', () => {
 
