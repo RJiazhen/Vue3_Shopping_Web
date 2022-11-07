@@ -1,6 +1,5 @@
 <template>
   <div style="background-color: #F4F4F4;">
-    <TypeNav /> <!-- 引入分类导航栏这个全局组件 -->
     <!-- Home页面专用组件 -->
     <ListContainer />
     <Recommend />
@@ -13,7 +12,6 @@
 </template>
 <script setup lang="ts">
 // 引入组件
-import TypeNav from "./TypeNav/index.vue"
 import ListContainer from "./ListContainer/index.vue";
 import Recommend from "./Recommend/index.vue";
 import Rank from "./Rank/index.vue";

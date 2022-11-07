@@ -44,11 +44,18 @@
     </div>
     <!--头部第二行 搜索区域-->
     <div class="bottom">
-      <h1 class="logoArea">
-        <router-link to="/home" class="logo" title="京东" target="_blank">
-          <img src="./images/logo.png">
-        </router-link>
-      </h1>
+      <div :class="showText ? 'logo-n-text' : 'only-logo'">
+        <h1>
+          <router-link to="/home" class="logo" title="京东">
+            <img src="./images/logo.png">
+          </router-link>
+        </h1>
+        <!-- 分类导航 -->
+        <div class="text-n-type-nav">
+          <TypeNav></TypeNav>
+        </div>
+      </div>
+
       <div class="right-area">
         <div class="search-n-cart">
           <div class="searchArea">
@@ -61,36 +68,36 @@
             <div class="search-recommend">
               <ul>
                 <li>
-                  <route-link>浪琴</route-link>
+                  <router-link to="/">浪琴</router-link>
                 </li>
                 <li>
-                  <route-link>镇店电脑</route-link>
+                  <router-link to="/">镇店电脑</router-link>
                 </li>
                 <li>
-                  <route-link>保暖服饰</route-link>
+                  <router-link to="/">保暖服饰</router-link>
                 </li>
                 <li>
-                  <route-link>爆款手机</route-link>
+                  <router-link to="/">爆款手机</router-link>
                 </li>
                 <li>
-                  <route-link>99元11件</route-link>
+                  <router-link to="/">99元11件</router-link>
                 </li>
                 <li>
-                  <route-link>企采超市</route-link>
+                  <router-link to="/">企采超市</router-link>
                 </li>
                 <li>
-                  <route-link>iphone14</route-link>
+                  <router-link to="/">iphone14</router-link>
                 </li>
               </ul>
             </div>
 
           </div>
           <div class="cart">
-            <el-icon>
-              <ShoppingCart style="width: 15px;height:15px; color:#F10215" />
-              <span class="cart-count" ref="cart-count">1</span>
+            <el-icon style="width: 15px;height:15px; color:#F10215">
+              <ShoppingCart />
 
             </el-icon>
+            <span class="cart-count" ref="cart-count">1</span>
             <span>我的购物车</span>
           </div>
         </div>
@@ -98,34 +105,34 @@
         <div class="short-cut">
           <ul>
             <li>
-              <route-link>京东五金城</route-link>
+              <router-link to="/">京东五金城</router-link>
             </li>
             <li>
-              <route-link>京东超市</route-link>
+              <router-link to="/">京东超市</router-link>
             </li>
             <li>
-              <route-link>秒杀</route-link>
+              <router-link to="/">秒杀</router-link>
             </li>
             <li>
-              <route-link>京东家电</route-link>
+              <router-link to="/">京东家电</router-link>
             </li>
             <li>
-              <route-link>京东生鲜</route-link>
+              <router-link to="/">京东生鲜</router-link>
             </li>
             <li>
-              <route-link>优惠券</route-link>
+              <router-link to="/">优惠券</router-link>
             </li>
             <li>
-              <route-link>PLUS会员</route-link>
+              <router-link to="/">PLUS会员</router-link>
             </li>
             <li>
-              <route-link>拍卖</route-link>
+              <router-link to="/">拍卖</router-link>
             </li>
             <li>
-              <route-link>品牌闪购</route-link>
+              <router-link to="/">品牌闪购</router-link>
             </li>
             <li>
-              <route-link>京东云</route-link>
+              <router-link to="/">京东云</router-link>
             </li>
           </ul>
         </div>
@@ -135,25 +142,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import {useRouter, useRoute} from "vue-router"
+import TypeNav from "@/pages/Home/TypeNav/index.vue"
+import { computed } from "@vue/reactivity";
+import { ref, onMounted } from "vue"
+import { useRouter, useRoute } from "vue-router"
+
+import _ from "lodash"
 
 const router = useRouter()
 const route = useRoute()
 
+// 控制是否显示“全部分类”
+const showText = computed(() => {
+  if (route.path !== '/home' && route.path !== '/') {
+    return true
+  }
+  else {
+    return false
+  }
+})
+
+
+// 搜索用的文本，并且在加载时清空
 let searchText = ref("");
+onMounted(() => {
+  searchText.value = ""
+})
 
-const toSearch = function (event: unknown) {
-  console.log('router:', router);
-  console.log('route:', route);
+// 搜索用的方法，携带参数跳转到Search路由
+const toSearch = function () {
+  let locations: any = {
+    name: "search",
+    params: { keyword: searchText.value || undefined },
+  };
 
-  router.push({
-    path: "/search",
-    query: {...route.query}
-  })
-  console.log('search');
-  console.log(searchText.value);
-  // component: Search,
+  //确定路径当中有query参数
+  if (route.query.categoryName) {
+    locations.query = route.query;
+  }
+  router.push(locations);
 }
 
 </script>
@@ -208,15 +235,39 @@ const toSearch = function (event: unknown) {
     width: 1000px;
 
     display: flex;
-
     margin: 0 auto;
-    overflow: hidden;
 
-    .logoArea {
-      .logo {
-        img {
-          width: 175px;
-          margin: 25px 45px;
+    .only-logo {
+      position: relative;
+      width: 265px;
+      height: 145px;
+
+      h1 {
+        .logo {
+          img {
+            width: 175px;
+            margin: 25px;
+          }
+        }
+      }
+    }
+
+    .logo-n-text {
+      position: relative;
+      width: 265px;
+      height: 145px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        display: block;
+
+        .logo {
+          img {
+            width: 155px;
+          }
         }
       }
     }
@@ -278,6 +329,8 @@ const toSearch = function (event: unknown) {
         }
 
         .cart {
+          position: relative;
+
           width: 130px;
           height: 35px;
           margin-left: 10px;
@@ -291,23 +344,22 @@ const toSearch = function (event: unknown) {
 
           el-icon {
             margin-right: 15px;
-            position: relative;
+          }
 
-            .cart-count {
-              position: absolute;
-              top: -5px;
-              right: -10px;
+          .cart-count {
+            position: absolute;
+            top: 5px;
+            left: 30px;
 
-              width: 17px;
-              height: 12px;
+            width: 17px;
+            height: 12px;
 
-              font-size: 12px;
-              line-height: 12px;
-              color: #fff;
+            font-size: 12px;
+            line-height: 12px;
+            color: #fff;
 
-              background-color: #e1251b;
-              border-radius: 7px;
-            }
+            background-color: #e1251b;
+            border-radius: 7px;
           }
         }
       }
