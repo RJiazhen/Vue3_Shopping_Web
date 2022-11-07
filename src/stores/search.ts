@@ -1,17 +1,29 @@
 import { defineStore } from "pinia"
-import { reactive, ref } from "vue"
+import { ref } from "vue"
 import { reqSearchResult } from '@/api/index'
 
 export const useSearch = defineStore('search', () => {
 
   // 获取搜索结果
-  let searchResult = reactive({})
-  async function getSearchResult(this: any) {
-    let result: any = await reqSearchResult({});
+  const searchResult: any = ref({})
+  async function getSearchResult(this: any, searchParams = {}) {
+    let result: any = await reqSearchResult(searchParams);
     if (result.code === 200) {
-      this.$patch(this.searchResult = result.data)
+      this.$state.searchResult = result.data
     }
   }
 
-  return {searchResult, getSearchResult}
+  // 商品列表
+  // 这里使用computed无法正常更新变量的值，后续考虑使用选项式API的写法再试一遍
+  // let goodsList = computed(() => {
+  //   console.log('re', searchResult);
+  //   console.log(searchResult.goodsList);
+  //   return searchResult.goodsList
+  // })
+
+  // //商标列表
+  // const trademarkList = computed(() => {
+  //   return searchResult.trademarkList
+  // })
+  return { searchResult, getSearchResult }
 })

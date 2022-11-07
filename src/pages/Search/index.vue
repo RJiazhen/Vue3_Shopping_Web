@@ -6,18 +6,11 @@
       <!--details-->
       <div class="details clearfix">
         <Navbar></Navbar>
+        <!-- 商品列表 -->
         <div class="goods-list">
           <ul>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
-            <Good></Good>
+            <Good v-for="(good, index) in goodsList" :key="good.id" :imgSrc="good.defaultImg" :title="good.title"
+              :price="good.price"></Good>
           </ul>
         </div>
         <div class="fr page">
@@ -48,11 +41,48 @@ import Good from "./Good/index.vue"
 import Pagination from "./Pagination/index.vue"
 import HotSaleGood from "./HotSaleGood/index.vue"
 
-import {useSearch} from "@/stores/search"
+import { useSearch } from "@/stores/search"
+import { computed } from "@vue/reactivity"
+import { onBeforeMount, onMounted, ref, watch, reactive } from "vue"
+import { useRoute } from "vue-router"
 
-// 打开页面后执行获取搜索结果
+
+// 获取搜索结果
 const search = useSearch()
-search.getSearchResult()
+const route = useRoute()
+// 默认搜索参数
+let searchParams = reactive({
+  "category1Id": "", // 一级分类id
+  "category2Id": "", // 二级分类id
+  "category3Id": "", // 三级分类id
+  "categoryName": "", // 分类名字
+  "keyword": "", // 关键字
+  "order": "", // 排序
+  "pageNo": 1, // 页码
+  "pageSize": 3, // 每页展示数据个数
+  "props": [], // 商品属性参数
+  "trademark": "" // 品牌
+})
+
+// 挂载页面时获取搜索结果
+onBeforeMount(() => {
+  Object.assign(searchParams, route.query, route.params) //设置搜索参数
+})
+onMounted(() => {
+  search.getSearchResult(searchParams)
+})
+// route更新时重新获取搜索结果
+// watch(route, (route) => {
+//   Object.assign(searchParams, route.query, route.params)
+//   search.getSearchResult(searchParams)
+//   // console.log(searchParams);
+//   searchParams.category1Id = ''
+//   searchParams.category2Id = ''
+//   searchParams.category3Id = ''
+// })
+
+// 商品列表数据
+let goodsList = computed(() => search.searchResult.goodsList || [])
 
 </script>
 <style lang="scss">

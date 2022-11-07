@@ -2,18 +2,16 @@
   <li class="">
     <div class="list-wrap">
       <div class="p-img">
-        <a href="item.html" target="_blank"><img src="./images/mobile01.png" /></a>
+        <a href="item.html" target="_blank"><img :src="imgSrc" /></a>
       </div>
       <div class="price">
         <strong>
-          <em>¥</em>
-          <i>6088.00</i>
+          <em>¥&nbsp;</em>
+          <i>{{price}}.00</i>
         </strong>
       </div>
       <div class="attr">
-        <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">Apple苹果iPhone
-          6s
-          (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)Apple苹果iPhone 6s (A1699)</a>
+        <a target="_blank" href="item.html" :title="title">{{title}}</a>
       </div>
       <div class="commit">
         <i class="command">已有<span>2000</span>人评价</i>
@@ -27,7 +25,11 @@
 </template>
 
 <script setup lang="ts">
-
+const props = defineProps<{
+  imgSrc: string,
+  title: string,
+  price: number,
+}>()
 </script>
 
 <style scoped lang="scss">
