@@ -69,7 +69,6 @@ let showTypeNav = ref()
 // 使用<router-link>跳转时不会触发onMounted和onActivated周期钩子，所以这里使用watch+mounted，后续再优化
 watch(route, async () => {
   showTypeNav.value = route.path != '/' ? false : true
-  console.log('showtn:', showTypeNav.value);
 
 })
 
