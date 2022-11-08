@@ -1,9 +1,11 @@
 <template>
   <div class="main">
     <div class="py-container">
-      <Bread :categoryName="searchParams.categoryName" @removeCategoryName="removeCategoryName"
-        :keyword="searchParams.keyword" @clearKeyword="clearKeyword"></Bread>
-      <Selector></Selector>
+      <!-- 面包屑 -->
+      <Bread :searchParams="searchParams" @removeCategoryName="removeCategoryName" @clearKeyword="clearKeyword"
+        @removeTrademark="removeTrademark"></Bread>
+      <!-- 选择器 -->
+      <Selector @trademarkHandler="trademarkHandler"></Selector>
       <!--details-->
       <div class="details clearfix">
         <Navbar></Navbar>
@@ -35,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+// #region 引入和定义全局变量
 import Bread from "./Bread/index.vue"
 import Selector from "./Selector/index.vue"
 import Navbar from "./Navbar/index.vue"
@@ -52,7 +55,9 @@ const route = useRoute()
 const router = useRouter()
 // 全局事件总线
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+// #endregion
 
+// #region 定义搜索参数和获取搜索结果
 // 默认搜索参数
 let searchParams = reactive({
   "category1Id": undefined, // 一级分类id
@@ -87,8 +92,9 @@ watch(route, (route) => {
 // 商品列表数据
 let goodsList = computed(() => search.searchResult.goodsList || [])
 
+// #endregion
 
-// 面包屑部分
+// #region 面包屑部分
 // 清除分类
 const removeCategoryName = () => {
   searchParams.category1Id = undefined
@@ -104,17 +110,36 @@ const removeCategoryName = () => {
 }
 // 清除关键字
 const clearKeyword = () => {
-  console.log('clear');
   searchParams.keyword = undefined
 
   search.getSearchResult(searchParams)
   if (route.query) {
     router.push({ name: 'search', query: route.query })
   }
-  console.log('search', $bus);
   // 清除输入框的关键字
   $bus.emit('clearKeyword')
 }
+
+// 清除品牌信息
+const removeTrademark = () => {
+  console.log('removeT');
+  searchParams.trademark = undefined
+  search.getSearchResult(searchParams)
+}
+// #endregion
+
+// #region 选择器部分
+// 点击品牌选项
+const trademarkHandler = (trademark) => {
+  searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+  search.getSearchResult(searchParams)
+  console.log(route.query);
+  if (route.query) {
+    router.push({ name: 'search', query: route.query })
+  }
+}
+// #endregion
+
 </script>
 
 <style lang="scss">

@@ -11,20 +11,26 @@
       <li class="with-x" v-show="categoryName">{{ categoryName }}<i @click="$emit('removeCategoryName')">×</i></li>
       <!-- 关键字的面包屑 -->
       <li class="with-x" v-show="keyword">{{ keyword }}<i @click="$emit('clearKeyword')">×</i></li>
-      <!-- 筛选项的面包屑 -->
+      <!-- 品牌的面包屑 -->
+      <li class="with-x" v-show="trademark">{{ trademark ? trademark.split(":")[1] : trademark }}<i
+          @click="$emit('removeTrademark')">×</i></li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from '@vue/reactivity';
+
 
 // 分类名称计算属性
 const props = defineProps<{
-  categoryName,
-  keyword
+  searchParams,
 }>()
-
+const categoryName = computed(() => props.searchParams.categoryName)
+const keyword = computed(() => props.searchParams.keyword)
+const trademark = computed(() => props.searchParams.trademark)
 </script>
+
 <style lang="scss">
 .bread {
   margin-bottom: 5px;

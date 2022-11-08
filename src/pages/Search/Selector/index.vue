@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="(trademark, index) in trademarkList" :key="trademark.tmId">{{ trademark.tmName }}</li>
+          <li v-for="(trademark, index) in trademarkList" :key="trademark.tmId" @click="$emit('trademarkHandler', trademark)">{{ trademark.tmName }}</li>
         </ul>
       </div>
       <div class="ext">
@@ -31,6 +31,7 @@ import { useSearch } from "@/stores/search"
 import { computed } from "@vue/reactivity";
 
 const search = useSearch()
+// 商标列表和属性列表计算属性
 const trademarkList = computed(() => search.searchResult.trademarkList)
 const attrsList = computed(() => search.searchResult.attrsList)
 </script>
@@ -90,6 +91,8 @@ const attrsList = computed(() => search.searchResult.attrsList)
           color: #e1251b;
           font-style: italic;
           font-size: 14px;
+
+          cursor: pointer;
 
           img {
             max-width: 100%;
