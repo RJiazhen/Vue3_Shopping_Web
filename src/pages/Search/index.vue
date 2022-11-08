@@ -72,14 +72,13 @@ onMounted(() => {
   search.getSearchResult(searchParams)
 })
 // route更新时重新获取搜索结果
-// watch(route, (route) => {
-//   Object.assign(searchParams, route.query, route.params)
-//   search.getSearchResult(searchParams)
-//   // console.log(searchParams);
-//   searchParams.category1Id = ''
-//   searchParams.category2Id = ''
-//   searchParams.category3Id = ''
-// })
+watch(route, (route) => {
+  Object.assign(searchParams, route.query, route.params)
+  search.getSearchResult(searchParams)
+  searchParams.category1Id = ''
+  searchParams.category2Id = ''
+  searchParams.category3Id = ''
+})
 
 // 商品列表数据
 let goodsList = computed(() => search.searchResult.goodsList || [])

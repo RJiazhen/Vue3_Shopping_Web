@@ -60,8 +60,9 @@
         <div class="search-n-cart">
           <div class="searchArea">
             <!-- 搜索输入区域 -->
-            <form action="###" class="searchForm">
-              <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="searchText" />
+            <!-- 这里使用@submit.prevent阻止默认的提交表单事件，并且给input的enter键弹起绑定搜索事件 -->
+            <form action="###" class="searchForm" @submit.prevent>
+              <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="searchText" @keyup.enter="toSearch"/>
               <button class="sui-btn btn-xlarge btn-danger" type="button" @click="toSearch">搜索</button>
             </form>
             <!-- 搜索推荐 -->
