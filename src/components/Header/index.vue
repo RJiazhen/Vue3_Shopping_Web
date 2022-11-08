@@ -62,7 +62,8 @@
             <!-- 搜索输入区域 -->
             <!-- 这里使用@submit.prevent阻止默认的提交表单事件，并且给input的enter键弹起绑定搜索事件 -->
             <form action="###" class="searchForm" @submit.prevent>
-              <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="searchText" @keyup.enter="toSearch"/>
+              <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="searchText"
+                @keyup.enter="toSearch" />
               <button class="sui-btn btn-xlarge btn-danger" type="button" @click="toSearch">搜索</button>
             </form>
             <!-- 搜索推荐 -->
@@ -145,13 +146,15 @@
 <script setup lang="ts">
 import TypeNav from "@/pages/Home/TypeNav/index.vue"
 import { computed } from "@vue/reactivity";
-import { ref, onMounted } from "vue"
+import { ref, onMounted, getCurrentInstance, onBeforeUnmount } from "vue"
 import { useRouter, useRoute } from "vue-router"
 
 import _ from "lodash"
 
 const router = useRouter()
 const route = useRoute()
+// 全局事件总线
+const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 // 控制是否显示“全部分类”
 const showText = computed(() => {
@@ -163,11 +166,17 @@ const showText = computed(() => {
   }
 })
 
-
-// 搜索用的文本，并且在加载时清空
+// 搜索用的关键字，以及配套的清除方法
 let searchText = ref("");
 onMounted(() => {
-  searchText.value = ""
+  $bus.on('clearKeyword', () => {
+    console.log('clearkw');
+    searchText.value = ""
+  })
+  $bus.emit('clearKeyword')
+})
+onBeforeUnmount(()=>{
+  $bus.off('clearKeyword')
 })
 
 // 搜索用的方法，携带参数跳转到Search路由
@@ -183,6 +192,7 @@ const toSearch = function () {
   }
   router.push(locations);
 }
+
 
 </script>
 <style lang="scss">

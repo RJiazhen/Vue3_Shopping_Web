@@ -7,15 +7,22 @@
       </li>
     </ul>
     <ul class="fl sui-tag">
-      <li class="with-x">手机</li>
-      <li class="with-x">iphone<i>×</i></li>
-      <li class="with-x">华为<i>×</i></li>
-      <li class="with-x">OPPO<i>×</i></li>
+      <!-- 分类的面包屑 -->
+      <li class="with-x" v-show="categoryName">{{ categoryName }}<i @click="$emit('removeCategoryName')">×</i></li>
+      <!-- 关键字的面包屑 -->
+      <li class="with-x" v-show="keyword">{{ keyword }}<i @click="$emit('clearKeyword')">×</i></li>
+      <!-- 筛选项的面包屑 -->
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+
+// 分类名称计算属性
+const props = defineProps<{
+  categoryName,
+  keyword
+}>()
 
 </script>
 <style lang="scss">
