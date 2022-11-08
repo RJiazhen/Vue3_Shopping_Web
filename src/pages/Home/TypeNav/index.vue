@@ -65,22 +65,21 @@ const showText = computed(() => {
 
 
 // 控制一级菜单是否显示
-let showTypeNav = ref(true)
-// 使用<router-link>跳转时不会触发onMounted和onActivated周期钩子，先使用watch，后续再优化
+let showTypeNav = ref()
+// 使用<router-link>跳转时不会触发onMounted和onActivated周期钩子，所以这里使用watch+mounted，后续再优化
 watch(route, async () => {
+  showTypeNav.value = route.path != '/' ? false : true
+  console.log('showtn:', showTypeNav.value);
+
+})
+
+onMounted(async () => {
   // 注意，在onMounted时router还没处理完初始导航，所以route.path会是默认的"/"
   // 这里使用isReady()等处理完初始导航后再进行后续的处理
+  await router.isReady()
   showTypeNav.value = route.path != '/' ? false : true
 })
 
-// onMounted(async () => {
-//   // 注意，在onMounted时router还没处理完初始导航，所以route.path会是默认的"/"
-//   // 这里使用isReady()等处理完初始导航后再进行后续的处理
-//   console.log('mounted');
-//   console.log(route.path);
-//   await router.isReady()
-//   showTypeNav.value = route.path != '/' ? false : true
-// })
 
 // 鼠标进入时显示一级菜单
 const toShowTypeNav = () => {
