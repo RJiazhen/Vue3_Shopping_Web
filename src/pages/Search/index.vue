@@ -8,7 +8,8 @@
       <Selector @trademarkHandler="trademarkHandler" @selectAttr="selectAttr"></Selector>
       <!--details-->
       <div class="details clearfix">
-        <Navbar></Navbar>
+        <!-- 排序选择器 -->
+        <Navbar :orderOption="orderOption" :orderDirection="orderDirection" @orderHandler="orderHandler"></Navbar>
         <!-- 商品列表 -->
         <div class="goods-list">
           <ul>
@@ -65,7 +66,7 @@ let searchParams = reactive({
   "category3Id": undefined, // 三级分类id
   "categoryName": undefined, // 分类名字
   "keyword": undefined, // 关键字
-  "order": undefined, // 排序
+  "order": '1:desc', // 排序
   "pageNo": 1, // 页码
   "pageSize": 3, // 每页展示数据个数
   "props": [], // 商品属性参数
@@ -110,6 +111,27 @@ const selectAttr = (attrId, attrName, attrValue) => {
   if (searchParams.props.indexOf(prop) == -1) searchParams.props.push(prop)
   search.getSearchResult(searchParams)
 }
+
+// 排序器
+const orderOption = computed(() => searchParams.order.split(':')[0])
+const orderDirection = computed(() => searchParams.order.split(':')[1])
+// 点击排序器
+const orderHandler = (newOrderOption) => {
+  // 如果是新的排序按钮，则默认是降序
+  if (newOrderOption != orderOption.value) {
+    searchParams.order = `${newOrderOption}:desc`
+  }
+  else {
+    // 如果是重复点击“综合”，则不变
+    if (newOrderOption === '1') {
+      return
+    }
+    // 如果是重复点击其他按钮，则只改变升降序
+    searchParams.order = `${orderOption.value}:${orderDirection.value === 'desc' ? 'asc' : 'desc'}`
+  }
+  search.getSearchResult(searchParams)
+}
+
 // #endregion
 
 // #region 面包屑部分
@@ -151,6 +173,9 @@ const removeProp = (index) => {
 }
 // #endregion
 
+// #region 分页器部分
+
+// #endregion
 
 </script>
 

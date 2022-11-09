@@ -2,23 +2,20 @@
   <div class="sui-navbar">
     <div class="navbar-inner filter">
       <ul class="sui-nav">
-        <li class="active">
-          <a href="#">综合</a>
+        <li :class="orderOption === '1' ? 'active' : ''" @click="$emit('orderHandler', '1')">
+          <a>综合
+            <span>
+              <ArrowDown style="width: 12px;height: 12px;" />
+            </span>
+          </a>
         </li>
-        <li>
-          <a href="#">销量</a>
-        </li>
-        <li>
-          <a href="#">新品</a>
-        </li>
-        <li>
-          <a href="#">评价</a>
-        </li>
-        <li>
-          <a href="#">价格⬆</a>
-        </li>
-        <li>
-          <a href="#">价格⬇</a>
+        <li :class="orderOption === '2' ? 'active' : ''" @click="$emit('orderHandler', '2')">
+          <a>价格
+            <span>
+              <ArrowUp v-show="orderOption === '2' && orderDirection === 'asc'" style="width: 12px;height: 12px;" />
+              <ArrowDown v-show="!(orderOption === '2' && orderDirection === 'asc')" style="width: 12px;height: 12px;" />
+            </span>
+          </a>
         </li>
       </ul>
     </div>
@@ -26,6 +23,11 @@
 </template>
 
 <script setup lang="ts">
+
+const props = defineProps<{
+  orderOption,
+  orderDirection
+}>()
 
 </script>
 
