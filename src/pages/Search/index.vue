@@ -3,9 +3,9 @@
     <div class="py-container">
       <!-- 面包屑 -->
       <Bread :searchParams="searchParams" @removeCategoryName="removeCategoryName" @clearKeyword="clearKeyword"
-        @removeTrademark="removeTrademark"></Bread>
+        @removeTrademark="removeTrademark" @removeProp="removeProp"></Bread>
       <!-- 选择器 -->
-      <Selector @trademarkHandler="trademarkHandler"></Selector>
+      <Selector @trademarkHandler="trademarkHandler" @selectAttr="selectAttr"></Selector>
       <!--details-->
       <div class="details clearfix">
         <Navbar></Navbar>
@@ -94,6 +94,24 @@ let goodsList = computed(() => search.searchResult.goodsList || [])
 
 // #endregion
 
+// #region 选择器部分
+// 点击品牌选项
+const trademarkHandler = (trademark) => {
+  searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+  search.getSearchResult(searchParams)
+  if (route.query) {
+    router.push({ name: 'search', query: route.query })
+  }
+}
+// 点击属性选项
+const selectAttr = (attrId, attrName, attrValue) => {
+  const prop = `${attrId}:${attrValue}:${attrName}`
+  // 只有当数组中没有这个属性时才插入该属性
+  if (searchParams.props.indexOf(prop) == -1) searchParams.props.push(prop)
+  search.getSearchResult(searchParams)
+}
+// #endregion
+
 // #region 面包屑部分
 // 清除分类
 const removeCategoryName = () => {
@@ -122,23 +140,17 @@ const clearKeyword = () => {
 
 // 清除品牌信息
 const removeTrademark = () => {
-  console.log('removeT');
   searchParams.trademark = undefined
+  search.getSearchResult(searchParams)
+}
+
+// 清除属性筛选
+const removeProp = (index) => {
+  searchParams.props.splice(index, 1)
   search.getSearchResult(searchParams)
 }
 // #endregion
 
-// #region 选择器部分
-// 点击品牌选项
-const trademarkHandler = (trademark) => {
-  searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
-  search.getSearchResult(searchParams)
-  console.log(route.query);
-  if (route.query) {
-    router.push({ name: 'search', query: route.query })
-  }
-}
-// #endregion
 
 </script>
 

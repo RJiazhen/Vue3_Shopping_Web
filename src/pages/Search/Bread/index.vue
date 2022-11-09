@@ -14,6 +14,13 @@
       <!-- 品牌的面包屑 -->
       <li class="with-x" v-show="trademark">{{ trademark ? trademark.split(":")[1] : trademark }}<i
           @click="$emit('removeTrademark')">×</i></li>
+      <!-- 筛选属性的面包屑 -->
+      <li class="with-x" v-show="searchProps != []" v-for="(prop, index) in searchProps" :key="index">{{
+          prop.split(":")[1]
+      }}
+        <i @click="$emit('removeProp', index)">×</i>
+      </li>
+
     </ul>
   </div>
 </template>
@@ -29,6 +36,7 @@ const props = defineProps<{
 const categoryName = computed(() => props.searchParams.categoryName)
 const keyword = computed(() => props.searchParams.keyword)
 const trademark = computed(() => props.searchParams.trademark)
+const searchProps = computed(() => props.searchParams.props)
 </script>
 
 <style lang="scss">
