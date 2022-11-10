@@ -14,7 +14,7 @@
         <div class="goods-list">
           <ul>
             <Good v-for="(good, index) in goodsList" :key="good.id" :imgSrc="good.defaultImg" :title="good.title"
-              :price="good.price"></Good>
+              :price="good.price" :goodId = 'good.id'></Good>
           </ul>
         </div>
         <div class="page">

@@ -2,16 +2,16 @@
   <li class="">
     <div class="list-wrap">
       <div class="p-img">
-        <a href="item.html" target="_blank"><img :src="imgSrc" /></a>
+        <router-link :to="`/detail/${goodId}`" target="_blank"><img :src="imgSrc" /></router-link>
       </div>
       <div class="price">
         <strong>
           <em>¥&nbsp;</em>
-          <i>{{price}}.00</i>
+          <i>{{ price }}.00</i>
         </strong>
       </div>
       <div class="attr">
-        <a target="_blank" href="item.html" :title="title">{{title}}</a>
+        <router-link :to="`/detail/${goodId}`" target="_blank" :title="title">{{ title }}</router-link>
       </div>
       <div class="commit">
         <i class="command">已有<span>2000</span>人评价</i>
@@ -29,7 +29,9 @@ const props = defineProps<{
   imgSrc: string,
   title: string,
   price: number,
+  goodId: number
 }>()
+console.log(props);
 </script>
 
 <style scoped lang="scss">
