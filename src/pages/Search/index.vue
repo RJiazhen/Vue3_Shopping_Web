@@ -17,8 +17,9 @@
               :price="good.price"></Good>
           </ul>
         </div>
-        <div class="fr page">
-          <Pagination></Pagination>
+        <div class="page">
+          <Pagination :pageNo="pageNo" :pageSize="pageSize" :continues="5" :total="total" :totalPages="totalPages" @getPageNo="getPageNo">
+          </Pagination>
         </div>
       </div>
       <!--hotsale-->
@@ -43,8 +44,9 @@ import Bread from "./Bread/index.vue"
 import Selector from "./Selector/index.vue"
 import Navbar from "./Navbar/index.vue"
 import Good from "./Good/index.vue"
-import Pagination from "./Pagination/index.vue"
 import HotSaleGood from "./HotSaleGood/index.vue"
+import Pagination from "@/components/Pagination/index.vue"
+// import Pagination from "@/component/Pagination/index.vue"
 
 import { useSearch } from "@/stores/search"
 import { computed } from "@vue/reactivity"
@@ -174,7 +176,15 @@ const removeProp = (index) => {
 // #endregion
 
 // #region 分页器部分
-
+const pageNo = computed((): number => search.searchResult.pageNo) // 当前页码
+const total = computed((): number => search.searchResult.total) // 总商品数
+const pageSize = computed((): number => search.searchResult.pageSize) // 每页商品数
+const totalPages = computed((): number => search.searchResult.totalPages) // 总页数
+// 获取点击的页码
+const getPageNo = (pageNo)=>{
+  searchParams.pageNo = pageNo
+  search.getSearchResult(searchParams)
+}
 // #endregion
 
 </script>
@@ -189,9 +199,12 @@ const removeProp = (index) => {
 
     .details {
       margin-bottom: 5px;
-
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
       .goods-list {
+        width: 100%;
         margin: 20px 0;
 
         ul {
@@ -201,12 +214,11 @@ const removeProp = (index) => {
       }
 
       .page {
-        width: 733px;
+        margin: auto;
+        width: 100%;
         height: 66px;
         overflow: hidden;
-        float: right;
-
-
+        // float: right;
       }
     }
 
