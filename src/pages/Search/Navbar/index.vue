@@ -33,6 +33,7 @@ const props = defineProps<{
 
 <style lang="scss">
 .sui-navbar {
+  width: 100%;
   overflow: visible;
   margin-bottom: 0;
 
