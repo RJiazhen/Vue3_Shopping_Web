@@ -36,7 +36,7 @@ let modules = [Pagination, Autoplay, Navigation]
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   position: relative;
 
