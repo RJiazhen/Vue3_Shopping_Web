@@ -11,7 +11,7 @@ export default [
   // 使用meta配置路由元信息，控制footer显示与否
   { path: '/', name: 'home', component: Home, meta: { showFooter: true, ishome: true } },
   { path: '/search/:keyword?', name: 'search', component: Search, meta: { showFooter: true } },
-  { path: '/detail/:goodId?', name: 'detail', component: Detail, meta: { showFooter: true } },
+  { path: '/detail/:skuId?', name: 'detail', component: Detail, meta: { showFooter: true } },
   { path: '/login', name: 'login', component: Login, meta: { showFooter: false } },
   { path: '/register', name: 'register', component: Register, meta: { showFooter: false } },
   { path: '/:pathMatch(.*)', redirect: '/' } // 当上述路径均未匹配时则跳转到/
