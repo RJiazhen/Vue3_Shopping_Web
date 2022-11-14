@@ -1,11 +1,11 @@
 <template>
   <div class="spec-preview">
     <img :src="imgList.length > 0 ? imgList[activedIndex].imgUrl : ''" />
-    <div class="event"></div>
+    <div class="event" @mousemove="moveMask"> </div>
     <div class="big">
-      <img :src="props.imgList.length > 0 ? imgList[activedIndex].imgUrl : ''" />
+      <img ref="bigImg" :src="props.imgList.length > 0 ? imgList[activedIndex].imgUrl : ''" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
@@ -28,7 +28,26 @@ onBeforeUnmount(() => {
   $bus.off('getActivedIndex')
 })
 
-//
+// 放大器
+let mask = ref()
+let bigImg = ref()
+
+const moveMask = (event) => {
+  let maskDom = mask.value
+  let bigDom = bigImg.value
+
+  let left = event.offsetX - maskDom.offsetWidth / 2
+  let top = event.offsetY - maskDom.offsetHeight / 2
+  if (left < 0) left = 0
+  if (left >= maskDom.offsetWidth) left = maskDom.offsetWidth
+  if (top < 0) top = 0
+  if (top >= maskDom.offsetHeight) top = maskDom.offsetHeight
+
+  maskDom.style.left = left + 'px'
+  maskDom.style.top = top + 'px'
+  bigDom.style.left = -2 * left + 'px'
+  bigDom.style.top = -2 * top + 'px'
+}
 </script>
 
 <style lang="scss" scoped>
