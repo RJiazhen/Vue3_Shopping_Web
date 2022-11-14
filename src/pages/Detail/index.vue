@@ -1,8 +1,5 @@
 <template>
   <div class="detail">
-    <!-- 商品分类导航 -->
-    <TypeNav />
-
     <!-- 主要内容区域 -->
     <section class="con">
       <!-- 导航路径区域 -->
@@ -16,9 +13,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom/>
+          <Zoom :imgList="imgList" />
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList :img-list="imgList"/>
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -64,10 +61,10 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl v-for="(spuSaleAttr, index) in detail.spuSaleAttrList" :key="spuSaleAttr.baseSaleAttrId">
+              <dl v-for="(spuSaleAttr, index) in   detail.spuSaleAttrList" :key="spuSaleAttr.baseSaleAttrId">
                 <dt class="title">{{ spuSaleAttr.saleAttrName }}</dt>
                 <dd changepirce="0" :class="spuSaleAttrValue.isChecked === '1' ? 'active' : ''"
-                  v-for="(spuSaleAttrValue, index) in spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id">{{
+                  v-for="(spuSaleAttrValue, index) in   spuSaleAttr.spuSaleAttrValueList" :key="spuSaleAttrValue.id">{{
     spuSaleAttrValue.saleAttrValueName
                   }}</dd>
               </dl>
@@ -335,6 +332,7 @@ import Zoom from './Zoom/index.vue'
 import { useRoute } from "vue-router"
 import { useDetail } from "@/stores/detail"
 import { onMounted } from 'vue';
+import { computed } from '@vue/reactivity';
 
 const route = useRoute()
 const detail = useDetail()
@@ -343,6 +341,9 @@ const detail = useDetail()
 onMounted(() => {
   detail.getGoodsInfo(route.params.skuId)
 })
+
+// 商品图片列表
+const imgList = computed(() => detail?.skuInfo?.skuImageList || [])
 </script>
 
 <style lang="scss" scoped>

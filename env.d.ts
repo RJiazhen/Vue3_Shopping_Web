@@ -31,16 +31,38 @@ interface goodsInfo {
     id: number
     isSale: number
     price: number
-    skuAttrValueList: Array<any>
+    skuAttrValueList: Array<{
+      attrId: number
+      attrName: string
+      id: number
+      skuId: number
+      valueId: number
+      valueName: string
+    }>
     skuDefaultImg: string
     skuDesc: string
-    skuImageList: Array<any>
+    skuImageList: Array<{
+      id: number
+      imgName: string
+      imgUrl: string
+      isDefault: string
+      skuId: number
+      spuImgId: number
+    }>
     skuName: string
-    skuSaleAttrValueList: Array<any>
+    skuSaleAttrValueList: Array<{
+      id: number
+      saleAttrId: number
+      saleAttrName: string
+      saleAttrValueId: number
+      saleAttrValueName: string
+      skuId: number
+      spuId: number
+    }>
     spuId: number
     tmId: number
     weight: string
-    spuSaleAttrList: Array<any>
+    spuSaleAttrList: Array<goodsInfo["spuSaleAttrList"]>
     valuesSkuJson: string
   },
   spuSaleAttrList: Array<{

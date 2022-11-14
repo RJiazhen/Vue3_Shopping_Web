@@ -1,15 +1,34 @@
 <template>
   <div class="spec-preview">
-    <img src="../images/s1.png" />
+    <img :src="imgList.length > 0 ? imgList[activedIndex].imgUrl : ''" />
     <div class="event"></div>
     <div class="big">
-      <img src="../images/s1.png" />
+      <img :src="props.imgList.length > 0 ? imgList[activedIndex].imgUrl : ''" />
     </div>
     <div class="mask"></div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue';
+
+const props = defineProps<{
+  imgList: goodsInfo["skuInfo"]["skuImageList"],
+}>()
+
+// 点击修改当前图片
+let activedIndex = ref(0)
+const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
+onMounted(() => {
+  $bus.on('getActivedIndex', (index) => {
+    activedIndex.value = index
+  })
+})
+onBeforeUnmount(() => {
+  $bus.off('getActivedIndex')
+})
+
+//
 </script>
 
 <style lang="scss" scoped>
