@@ -19,7 +19,7 @@
             <router-link to="/">我的订单</router-link>
           </span>
           <span>
-            <router-link to="/">我的购物车</router-link>
+            <router-link to="/cart">我的购物车</router-link>
           </span>
           <span>
             <router-link to="/">我的京东</router-link>
@@ -94,14 +94,13 @@
             </div>
 
           </div>
-          <div class="cart">
+          <router-link class="cart" to="/cart">
             <el-icon style="width: 15px;height:15px; color:#F10215">
               <ShoppingCart />
-
             </el-icon>
             <span class="cart-count" ref="cart-count">1</span>
             <span>我的购物车</span>
-          </div>
+          </router-link>
         </div>
         <!-- 快捷方式 -->
         <div class="short-cut">
