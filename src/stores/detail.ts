@@ -27,7 +27,6 @@ export const useDetail = defineStore('detail', () => {
   // 添加商品到购物车
   const addOrUpdateShopCart = async (skuId: string, skuNum: number) => {
     let result: result = await reqAddOrUpdateShopCart(skuId, skuNum)
-    console.log(result);
     if (result.code == 200) {
       return "ok"
     } else {
