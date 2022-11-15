@@ -4,6 +4,7 @@ import Search from '@/pages/Search/index.vue'
 import Detail from "@/pages/Detail/index.vue"
 import Login from '@/pages/Login/index.vue'
 import Register from '@/pages/Register/index.vue'
+import AddCartSuccess from "@/pages/AddCartSuccess/index.vue"
 
 
 
@@ -12,6 +13,7 @@ export default [
   { path: '/', name: 'home', component: Home, meta: { showFooter: true, ishome: true } },
   { path: '/search/:keyword?', name: 'search', component: Search, meta: { showFooter: true } },
   { path: '/detail/:skuId?', name: 'detail', component: Detail, meta: { showFooter: true } },
+  { path: '/addcartsuccess/:skuId?', name: 'addcartsuccess', component: AddCartSuccess, meta: { showFooter: true } },
   { path: '/login', name: 'login', component: Login, meta: { showFooter: false } },
   { path: '/register', name: 'register', component: Register, meta: { showFooter: false } },
   { path: '/:pathMatch(.*)', redirect: '/' } // 当上述路径均未匹配时则跳转到/

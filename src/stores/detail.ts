@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { computed, reactive, ref } from "vue"
-import { reqGoodsInfo } from '@/api/index'
+import { reqGoodsInfo, reqAddOrUpdateShopCart } from '@/api/index'
 
 export const useDetail = defineStore('detail', () => {
 
@@ -23,7 +23,18 @@ export const useDetail = defineStore('detail', () => {
   const skuInfo = computed(() => goodsInfo.value?.skuInfo || <goodsInfo["skuInfo"]>{})
   // 售卖属性
   const spuSaleAttrList = computed(() => goodsInfo.value?.spuSaleAttrList || <goodsInfo["spuSaleAttrList"]>[])
-  
-  return { goodsInfo, getGoodsInfo, categoryView, skuInfo, spuSaleAttrList }
+
+  // 添加商品到购物车
+  const addOrUpdateShopCart = async (skuId: string, skuNum: number) => {
+    let result: result = await reqAddOrUpdateShopCart(skuId, skuNum)
+    console.log(result);
+    if (result.code == 200) {
+      return "ok"
+    } else {
+      // 如果添加失败则返回一个报错
+      return Promise.reject(new Error('false'))
+    }
+  }
+  return { goodsInfo, getGoodsInfo, categoryView, skuInfo, spuSaleAttrList, addOrUpdateShopCart }
 })
 

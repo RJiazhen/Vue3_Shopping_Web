@@ -5,6 +5,13 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+// 请求返回数据类型
+interface result {
+  code: number,
+  data: unknown,
+  message: string,
+  ok: boolean
+}
 
 // 轮播图数据类型
 interface carouselItem {
