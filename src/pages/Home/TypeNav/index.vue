@@ -36,7 +36,7 @@
     </div>
   </div>
 </template>
-src/pages/Home/TypeNav/index.vue
+
 <script setup lang="ts">
 import { onBeforeMount, ref, onMounted, watch } from "vue"
 import { useHome } from "@/stores/home"
