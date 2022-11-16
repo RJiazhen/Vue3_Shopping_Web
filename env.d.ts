@@ -1,8 +1,11 @@
 /// <reference types="vite/client" />
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
-  const component: DefineComponent<{}, {}, any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,
+  @typescript-eslint / ban - types
+  const component: DefineComponent<{},
+    {},
+    any>
   export default component
 }
 // 请求返回数据类型
@@ -19,7 +22,6 @@ interface carouselItem {
   imgUrl: string,
   url: string
 }
-
 
 // 商品信息变量的相关接口
 interface goodsInfo {
@@ -92,3 +94,31 @@ interface goodsInfo {
   valuesSkuJson: string,
 }
 
+// 购物车列表数据类型
+interface cartListResult {
+  code: number,
+  message: string,
+  data: Array<{
+    cartInfoList: Array<{
+      id: number,
+      userId: string,
+      skuId: number,
+      cartPrice: number,
+      skuNum: number,
+      imgUrl: string,
+      skuName: string,
+      isChecked: number,
+      createTime: string,
+      operateTime: string,
+      isOrdered: number,
+      orderTime: any,
+      sourceType: string,
+      sourceId: number,
+      skuPrice: number,
+      couponInfoList: any
+    }>,
+    activityRuleList: any,
+    createTime: string
+  }>,
+  ok: true
+}
