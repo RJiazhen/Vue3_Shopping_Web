@@ -72,8 +72,9 @@
 import { onMounted } from 'vue';
 import { useCart } from "@/stores/cart"
 import { computed } from '@vue/reactivity';
-import { Goods } from '@element-plus/icons-vue';
 import { useDetail } from '@/stores/detail';
+import throttle from "lodash/throttle";
+
 
 const cart = useCart()
 const detail = useDetail()
@@ -98,7 +99,8 @@ const totalPrice = computed(() => {
 const isAllChecked = computed(() => cart.cartInfoList.every(item => item.isChecked == 1))
 
 // 修改商品数量
-const changeSkuNum = async (type, newNum, good) => {
+// 添加节流，以防止用户操作过快造成异常
+const changeSkuNum = throttle(async (type, newNum, good) => {
   let disNum = 0
   // 根据不同请求修改disNum
   switch (type) {
@@ -131,7 +133,7 @@ const changeSkuNum = async (type, newNum, good) => {
     cart.getCartList()
   } catch (error) { }
 
-}
+},500)
 
 // 删除商品
 const deleteSku = async (goodId) => {
