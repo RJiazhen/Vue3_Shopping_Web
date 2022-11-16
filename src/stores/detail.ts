@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
-import { computed, reactive, ref } from "vue"
+import { computed, ref } from "vue"
 import { reqGoodsInfo, reqAddOrUpdateShopCart } from '@/api/index'
+import {getUUID} from "@/utils/uuid_token"
 
 export const useDetail = defineStore('detail', () => {
 
@@ -14,17 +15,9 @@ export const useDetail = defineStore('detail', () => {
     }
   }
 
-  // 使用计算属性提前简化相应的值
-  // 分类信息   使用?.运算符配合||保证不会因为还未获得数据而报错
-  const categoryView = computed(() => {
-    return goodsInfo.value?.categoryView || <goodsInfo["categoryView"]>{}
-  })
-  // 商品信息
-  const skuInfo = computed(() => goodsInfo.value?.skuInfo || <goodsInfo["skuInfo"]>{})
-  // 售卖属性
-  const spuSaleAttrList = computed(() => goodsInfo.value?.spuSaleAttrList || <goodsInfo["spuSaleAttrList"]>[])
-
   // 添加商品到购物车
+  // 先获取临时游客身份
+  const uuid_token = getUUID()
   const addOrUpdateShopCart = async (skuId: string, skuNum: number) => {
     let result: result = await reqAddOrUpdateShopCart(skuId, skuNum)
     if (result.code == 200) {
@@ -34,6 +27,18 @@ export const useDetail = defineStore('detail', () => {
       return Promise.reject(new Error('false'))
     }
   }
-  return { goodsInfo, getGoodsInfo, categoryView, skuInfo, spuSaleAttrList, addOrUpdateShopCart }
+
+  // 使用计算属性提前简化页面中需要使用的值
+  // 分类信息   使用?.运算符配合||保证不会因为还未获得数据而报错
+  const categoryView = computed(() => {
+    return goodsInfo.value?.categoryView || <goodsInfo["categoryView"]>{}
+  })
+  // 商品信息
+  const skuInfo = computed(() => goodsInfo.value?.skuInfo || <goodsInfo["skuInfo"]>{})
+  // 售卖属性
+  const spuSaleAttrList = computed(() => goodsInfo.value?.spuSaleAttrList || <goodsInfo["spuSaleAttrList"]>[])
+
+
+  return { goodsInfo, getGoodsInfo, categoryView, skuInfo, spuSaleAttrList, addOrUpdateShopCart, uuid_token }
 })
 
