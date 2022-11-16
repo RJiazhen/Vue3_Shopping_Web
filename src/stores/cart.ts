@@ -1,7 +1,6 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { reqCartList, reqDeleteCartById } from "@/api/index"
-import type { AxiosResponse } from "axios"
+import { reqCartList, reqDeleteCartById, reqUpdateCheckedById } from "@/api/index"
 
 export const useCart = defineStore('cart', () => {
   let reqCartResult = ref<cartListResult>()
@@ -20,9 +19,18 @@ export const useCart = defineStore('cart', () => {
     if (result.code == 200) {
       return 'ok'
     } else {
-      return Promise.reject(new Error('falie'))
+      return Promise.reject(new Error('falied'))
     }
-
   }
-  return { getCartList, cartInfoList,deleteCartListBySkuId }
+
+  //修改商品选中状态
+  const updateCheckedById =async (skuId:number, isChecked) => {
+    let result = await reqUpdateCheckedById(skuId, isChecked);
+    if (result.code == 200) {
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('falied'))
+    }
+  }
+  return { getCartList, cartInfoList, deleteCartListBySkuId, updateCheckedById }
 })

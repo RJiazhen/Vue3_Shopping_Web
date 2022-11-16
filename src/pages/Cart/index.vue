@@ -14,7 +14,8 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="(good, index) in cart.cartInfoList" :key="good.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list">
+            <input type="checkbox" name="chk_list" :checked="good.isChecked == 1"
+              @change="updateChecked(good.skuId, $event.target.checked)">
           </li>
           <li class="cart-list-con2">
             <img :src="good.imgUrl">
@@ -133,7 +134,7 @@ const changeSkuNum = throttle(async (type, newNum, good) => {
     cart.getCartList()
   } catch (error) { }
 
-},500)
+}, 500)
 
 // 删除商品
 const deleteSku = async (goodId) => {
@@ -142,6 +143,17 @@ const deleteSku = async (goodId) => {
     cart.getCartList()
   } catch (error) {
     alert(error.massage)
+  }
+}
+
+// 修改商品勾选状态
+// TODO 全选按钮更新慢半拍，考虑在服务器返回结果前就修改
+const updateChecked = async (skuId: number, isChecked: number) => {
+  try {
+    await cart.updateCheckedById(skuId, isChecked ? 1 : 0)
+    cart.getCartList()
+  } catch (error) {
+    alert(error.message)
   }
 }
 </script>
