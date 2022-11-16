@@ -35,7 +35,7 @@
             <span class="sum">{{ good.skuPrice * good.skuNum }}</span>
           </li>
           <li class="cart-list-con6">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="deleteSku(good.skuId)">删除</a>
             <br>
             <a href="#none">移到收藏</a>
           </li>
@@ -131,6 +131,16 @@ const changeSkuNum = async (type, newNum, good) => {
     cart.getCartList()
   } catch (error) { }
 
+}
+
+// 删除商品
+const deleteSku = async (goodId) => {
+  try {
+    await cart.deleteCartListBySkuId(goodId)
+    cart.getCartList()
+  } catch (error) {
+    alert(error.massage)
+  }
 }
 </script>
 

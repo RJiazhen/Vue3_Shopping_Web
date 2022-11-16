@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { reqCartList } from "@/api/index"
+import { reqCartList, reqDeleteCartById } from "@/api/index"
 import type { AxiosResponse } from "axios"
 
 export const useCart = defineStore('cart', () => {
@@ -14,5 +14,15 @@ export const useCart = defineStore('cart', () => {
     }
   }
 
-  return { getCartList, cartInfoList }
+  // 删除购物车商品
+  const deleteCartListBySkuId = async (skuId: number) => {
+    let result = await reqDeleteCartById(skuId);
+    if (result.code == 200) {
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('falie'))
+    }
+
+  }
+  return { getCartList, cartInfoList,deleteCartListBySkuId }
 })
