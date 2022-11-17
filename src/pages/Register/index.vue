@@ -6,23 +6,23 @@
     </h3>
     <div class="content">
       <label>手机号:</label>
-      <input type="text" placeholder="请输入你的手机号">
+      <input type="text" placeholder="请输入你的手机号" v-model="phone">
       <span class="error-msg">错误提示信息</span>
     </div>
     <div class="content">
       <label>验证码:</label>
-      <input type="text" placeholder="请输入验证码">
-      <button class="get-code">获取验证码</button>
+      <input type="text" placeholder="请输入验证码" v-model="code">
+      <button class="get-code" @click="getCode">获取验证码</button>
       <span class="error-msg">错误提示信息</span>
     </div>
     <div class="content">
       <label>登录密码:</label>
-      <input type="text" placeholder="请输入你的登录密码">
+      <input type="password" placeholder="请输入你的登录密码" v-model="password">
       <span class="error-msg">错误提示信息</span>
     </div>
     <div class="content">
       <label>确认密码:</label>
-      <input type="text" placeholder="请输入确认密码">
+      <input type="password" placeholder="请输入确认密码" v-model="password1">
       <span class="error-msg">错误提示信息</span>
     </div>
     <div class="controls">
@@ -31,13 +31,50 @@
       <span class="error-msg">错误提示信息</span>
     </div>
     <div class="btn">
-      <button>完成注册</button>
+      <button @click="userRegister">完成注册</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue"
+import { useUser } from "@/stores/user"
+import { useRouter } from "vue-router"
 
+const user = useUser()
+const router = useRouter()
+
+// #region 验证码系统
+// 手机号和验证码
+const phone = ref<number>()
+const code = ref<number>()
+
+// 获取验证码
+const getCode = async () => {
+  try {
+    phone && await user.getCode(phone.value)
+    // 这里直接填写好验证码了，模拟用户收到验证码并填写上去的过程
+    code.value = user.code
+  } catch (error) {
+    alert(error.message)
+  }
+  // #endregion
+}
+
+// #region 注册功能
+// 密码
+const password = ref('')
+const password1 = ref('')
+// 注册按钮
+const userRegister = async () => {
+  try {
+    (phone.value && code.value && password.value == password1.value) && user.userRegister({ phone: phone.value, code: code.value, password: password.value, password1: password1.value })
+    router.push('/login')
+  } catch (error) {
+    alert(error.message)
+  }
+}
+  // #endregion
 </script>
 
 <style scoped lang="scss">
@@ -112,7 +149,8 @@
       height: 38px;
       padding: 0 10px;
       margin-left: 10px;
-      &:hover{
+
+      &:hover {
         cursor: pointer;
       }
     }
