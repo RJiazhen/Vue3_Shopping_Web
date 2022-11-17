@@ -36,13 +36,23 @@ export const useCart = defineStore('cart', () => {
   // 删除所有选中的商品
   const deleteCheckedSku = () => {
     // 遍历所有商品，将isChecked为1的删除
-    let PromiseAll = []
+    let promiseAll = []
     cartInfoList.value.forEach(item => {
       let promise = item.isChecked == 1 ? deleteCartListBySkuId(item.skuId) : ''
-      PromiseAll.push(promise)
+      promiseAll.push(promise)
     });
     // 使用Promise.all，只有当所有promise都返回成功才返回成功，否则返回错误
-    return Promise.all(PromiseAll)
+    return Promise.all(promiseAll)
   }
-  return { getCartList, cartInfoList, deleteCartListBySkuId, updateCheckedById, deleteCheckedSku }
+
+  // 修改所有商品的选中状态
+  const updateAllChecked = (checked) => {
+    let promiseAll = []
+    cartInfoList.value.forEach(item => {
+      let promise = updateCheckedById(item.skuId, checked)
+      promiseAll.push(promise)
+    })
+    return Promise.all(promiseAll)
+  }
+  return { getCartList, cartInfoList, deleteCartListBySkuId, updateCheckedById, deleteCheckedSku, updateAllChecked }
 })

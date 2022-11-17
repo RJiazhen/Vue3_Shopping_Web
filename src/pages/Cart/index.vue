@@ -45,7 +45,10 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked">
+        <!-- 当购物车为空时全选按钮不能按 -->
+        <!-- TODO 考虑优化全选按钮体验，让其也能点，但是没有任何实际效果，而不是直接不能点 -->
+        <input class="chooseAll" type="checkbox" :disabled="cart.cartInfoList.length < 1" :checked="isAllChecked"
+          @change="updateAllChecked($event)">
         <span>全选</span>
       </div>
       <div class="option">
@@ -159,11 +162,22 @@ const updateChecked = async (skuId: number, isChecked: number) => {
 }
 
 // 删除选定商品
-const deleteCheckedSku = async()=> {
-  try{
+const deleteCheckedSku = async () => {
+  try {
     await cart.deleteCheckedSku()
     cart.getCartList()
-  }catch(error){
+  } catch (error) {
+    alert(error.message)
+  }
+}
+
+// 修改所有商品选定状态
+const updateAllChecked = async (event) => {
+  let checked = event.target.checked ? '1' : '0'
+  try {
+    await cart.updateAllChecked(checked)
+    cart.getCartList()
+  } catch (error) {
     alert(error.message)
   }
 }
