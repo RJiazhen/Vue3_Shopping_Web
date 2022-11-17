@@ -49,7 +49,7 @@
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteCheckedSku()">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -137,6 +137,7 @@ const changeSkuNum = throttle(async (type, newNum, good) => {
 }, 500)
 
 // 删除商品
+// TODO 添加删除确认弹窗
 const deleteSku = async (goodId) => {
   try {
     await cart.deleteCartListBySkuId(goodId)
@@ -153,6 +154,16 @@ const updateChecked = async (skuId: number, isChecked: number) => {
     await cart.updateCheckedById(skuId, isChecked ? 1 : 0)
     cart.getCartList()
   } catch (error) {
+    alert(error.message)
+  }
+}
+
+// 删除选定商品
+const deleteCheckedSku = async()=> {
+  try{
+    await cart.deleteCheckedSku()
+    cart.getCartList()
+  }catch(error){
     alert(error.message)
   }
 }
