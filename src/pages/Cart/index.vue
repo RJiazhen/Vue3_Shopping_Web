@@ -18,8 +18,10 @@
               @change="updateChecked(good.skuId, $event.target.checked)">
           </li>
           <li class="cart-list-con2">
-            <img :src="good.imgUrl">
-            <div class="item-msg">{{ good.skuName }}</div>
+            <RouterLink :to="`/detail/${good.skuId}`"><img :src="good.imgUrl"></RouterLink>
+            <div class="item-msg">
+              <RouterLink :to="`/detail/${good.skuId}`">{{ good.skuName }}</RouterLink>
+            </div>
           </li>
 
           <li class="cart-list-con3">
@@ -255,8 +257,6 @@ const updateAllChecked = async (event) => {
         .cart-list-con2 {
           width: 35%;
           display: flex;
-
-
           img {
             width: 82px;
             height: 82px;
