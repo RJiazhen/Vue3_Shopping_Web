@@ -207,14 +207,7 @@ const updateAllChecked = async (event) => {
 
       .cart-th1 {
         width: 15%;
-
-        input {
-          vertical-align: middle;
-        }
-
-        span {
-          vertical-align: middle;
-        }
+        display: flex;
       }
 
       .cart-th2 {
@@ -255,6 +248,8 @@ const updateAllChecked = async (event) => {
         .cart-list-con1 {
           padding-top: 5px;
           width: 15%;
+
+          display: flex;
         }
 
         .cart-list-con2 {
