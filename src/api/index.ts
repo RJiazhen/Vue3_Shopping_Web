@@ -37,3 +37,6 @@ export const reqUserRegister = (data) => request({ url: '/user/passport/register
 
 // 提交登录
 export const reqUserLogin = (data) => request({ url: '/user/passport/login', data, method: 'post' })
+
+// 获取用户信息
+export const reqUserInfo = () => request({ url: '/user/passport/auth/getUserInfo', method: 'get' })

@@ -9,12 +9,22 @@
           广西
         </div>
         <div class="typeList">
-          <span>
+          <!-- 未登录 -->
+          <span v-if="!userName">
             <router-link to="/login">你好，请登录</router-link>
           </span>
-          <span class="register">
+          <span class="register" v-if="!userName">
             <router-link to="/register">免费注册</router-link>
           </span>
+
+          <!-- 已登录 -->
+          <span v-if="userName">
+            <router-link to="/login">{{ userName }}</router-link>
+          </span>
+          <span class="register" v-if="userName">
+            <router-link to="/register">退出登录</router-link>
+          </span>
+
           <span>
             <router-link to="/">我的订单</router-link>
           </span>
@@ -147,6 +157,7 @@ import TypeNav from "@/pages/Home/TypeNav/index.vue"
 import { computed } from "@vue/reactivity";
 import { ref, onMounted, getCurrentInstance, onBeforeUnmount } from "vue"
 import { useRouter, useRoute } from "vue-router"
+import { useUser } from "@/stores/user"
 
 import _ from "lodash"
 
@@ -155,6 +166,19 @@ const route = useRoute()
 // 全局事件总线
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
+// #region 获取用户信息
+const user = useUser()
+const userName = computed(() => {
+  return user.userInfo?.name
+})
+onMounted(() => {
+  try {
+    user.getUserInfo()
+  } catch (error) {
+    alert(error.message)
+  }
+})
+// #endregion
 // 控制是否显示“全部分类”
 const showText = computed(() => {
   if (route.path !== '/home' && route.path !== '/') {
@@ -174,7 +198,7 @@ onMounted(() => {
   })
   $bus.emit('clearKeyword')
 })
-onBeforeUnmount(()=>{
+onBeforeUnmount(() => {
   $bus.off('clearKeyword')
 })
 

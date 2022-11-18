@@ -122,3 +122,22 @@ interface cartListResult {
   }>,
   ok: true
 }
+
+// 用户信息数据类型
+interface userInfo {
+  birthday: null | string,
+  createTime: string,
+  email: null | string,
+  gender: null | string,
+  headImg: string,
+  id: number,
+  loginName: string,
+  name: string,
+  nickName: string,
+  openId: null | number,
+  operateTime: null | string,
+  passwd: string
+  phoneNum: string
+  status: number
+  userLevel: null | number
+}
