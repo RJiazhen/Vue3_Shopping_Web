@@ -166,17 +166,10 @@ const route = useRoute()
 // 全局事件总线
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
-// #region 获取用户信息
+// #region 展示用户信息
 const user = useUser()
 const userName = computed(() => {
   return user.userInfo?.name
-})
-onMounted(() => {
-  try {
-    user.getUserInfo()
-  } catch (error) {
-    alert(error.message)
-  }
 })
 // #endregion
 
