@@ -13,17 +13,17 @@
           </ul>
 
           <div class="content">
-            <form action="##">
+            <form action="##" @submit.prevent>
 
               <div class="input-text clearFix">
                 <i></i>
-                <input type="text" placeholder="手机号">
+                <input type="text" placeholder="手机号" v-model="phone">
                 <span class="error-msg">错误提示信息</span>
               </div>
 
               <div class="input-text clearFix">
                 <i class="pwd"></i>
-                <input type="text" placeholder="请输入密码">
+                <input type="password" placeholder="请输入密码" v-model="password">
                 <span class="error-msg">错误提示信息</span>
               </div>
 
@@ -34,7 +34,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click="userLogin">登&nbsp;&nbsp;录</button>
 
             </form>
             <div class="call clearFix">
@@ -44,7 +44,7 @@
                 <li><img src="./images/ali.png" alt=""></li>
                 <li><img src="./images/weixin.png" alt=""></li>
               </ul>
-              <a href="##" class="register">立即注册</a>
+              <a href="#" class="register">立即注册</a>
             </div>
           </div>
         </div>
@@ -52,9 +52,28 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
 
+<script setup lang="ts">
+import { ref } from "vue"
+import { useUser } from "@/stores/user"
+import router from "@/router";
+
+const user = useUser()
+// 手机号
+const phone = ref<number>()
+// 密码
+const password = ref<string>()
+// 登录回调函数
+const userLogin = () => {
+  try {
+    (phone && password) && user.userLogin({ phone: phone.value, password: password.value })
+    router.push({ name: 'home' })
+  } catch (error) {
+    alert(error.message)
+  }
+}
 </script>
+
 <style scoped lang="scss">
 .login-wrap {
   height: 487px;

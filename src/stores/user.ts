@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
-import { ref } from "vue"
-import { reqGetCode, reqUserRegister } from '@/api/index'
+import { computed, ref } from "vue"
+import { reqGetCode, reqUserRegister, reqUserLogin } from '@/api/index'
 
 export const useUser = defineStore('user', () => {
 
@@ -31,5 +31,26 @@ export const useUser = defineStore('user', () => {
   }
   // #endregion
 
-  return { code, getCode, userRegister }
+  // #region 登录功能
+  // token
+  const token = computed(() => {
+    console.log();
+    return localStorage.getItem('token') || ''
+  })
+  const userLogin = async (user: object) => {
+    console.log(user);
+    let result = await reqUserLogin(user)
+    if (result.code == 200) {
+      // token.value = result.token
+      console.log('login', result);
+      localStorage.setItem('token', result.data.token)
+      console.log(token);
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('failed'))
+    }
+  }
+  // #endregion
+
+  return { code, getCode, userRegister, userLogin, token }
 })
