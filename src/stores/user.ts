@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue"
-import { reqGetCode, reqUserRegister, reqUserLogin, reqUserInfo } from '@/api/index'
-import { setToken, getToken } from "@/utils/token"
+import { reqGetCode, reqUserRegister, reqUserLogin, reqUserInfo, reqLogout } from '@/api/index'
+import { setToken, getToken, removeToken } from "@/utils/token"
 
 export const useUser = defineStore('user', () => {
 
@@ -56,6 +56,23 @@ export const useUser = defineStore('user', () => {
     } else {
       return Promise.reject(new Error('failed'))
     }
-  }  // #endregion
-  return { code, getCode, userRegister, userLogin, token, getUserInfo, userInfo }
+  }
+  // #endregion
+
+  // #region 退出登录
+  const userLogout = async () => {
+    let result = await reqLogout()
+    if (result.code == 200) {
+      // 清除成功后需要再清楚本地数据
+      removeToken()
+      userInfo.value = <userInfo>{}
+      // setToken(result.data.token)
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('failed'))
+    }
+  }
+  // #endregion
+
+  return { code, getCode, userRegister, userLogin, token, getUserInfo, userInfo, userLogout }
 })

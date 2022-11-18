@@ -16,7 +16,7 @@ request.interceptors.request.use((config) => {
   if (detail.uuid_token) {
     config.headers.userTempId = detail.uuid_token
   }
-  // 如果已经有token了，则也需要携带token
+  // 如果已经有token了，则也需要携带token，并且获取用户信息
   const user = useUser()
   if (user.token) {
     config.headers.token = user.token

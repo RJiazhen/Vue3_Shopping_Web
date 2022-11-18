@@ -22,7 +22,7 @@
             <router-link to="/login">{{ userName }}</router-link>
           </span>
           <span class="register" v-if="userName">
-            <router-link to="/register">退出登录</router-link>
+            <a @click="logout">退出登录</a>
           </span>
 
           <span>
@@ -179,6 +179,19 @@ onMounted(() => {
   }
 })
 // #endregion
+
+// #region 退出登录
+const logout = async () => {
+  try {
+    await user.userLogout()
+    // 如果退出成功，则返回首页
+    router.push({ name: 'home' })
+  } catch (error) {
+    alert(error.message)
+  }
+}
+// #endregion
+
 // 控制是否显示“全部分类”
 const showText = computed(() => {
   if (route.path !== '/home' && route.path !== '/') {
