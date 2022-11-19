@@ -67,7 +67,7 @@
           <i class="summoney">{{ totalPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <RouterLink to="/trade" class="sum-btn">结算</RouterLink>
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@ const updateAllChecked = async (event) => {
 
 <style scoped lang="scss">
 .cart {
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
 
   h4 {
@@ -257,6 +257,7 @@ const updateAllChecked = async (event) => {
         .cart-list-con2 {
           width: 35%;
           display: flex;
+
           img {
             width: 82px;
             height: 82px;
@@ -397,6 +398,10 @@ const updateAllChecked = async (event) => {
           font-family: "Microsoft YaHei";
           background: #e1251b;
           overflow: hidden;
+
+          &:hover {
+            color: #fff !important;
+          }
         }
       }
     }

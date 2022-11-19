@@ -6,6 +6,7 @@ import Login from '@/pages/Login/index.vue'
 import Register from '@/pages/Register/index.vue'
 import AddCartSuccess from "@/pages/AddCartSuccess/index.vue"
 import Cart from "@/pages/Cart/index.vue"
+import Trade from "@/pages/Trade/index.vue"
 
 
 export default [
@@ -17,5 +18,7 @@ export default [
   { path: '/cart', name: 'cart', component: Cart, meta: { showFooter: true } },
   { path: '/login', name: 'login', component: Login, meta: { showFooter: false } },
   { path: '/register', name: 'register', component: Register, meta: { showFooter: false } },
+  { path: '/trade', name: 'trade', component: Trade, meta: { showFooter: true } },
+
   { path: '/:pathMatch(.*)', redirect: '/' } // 当上述路径均未匹配时则跳转到/
 ]
