@@ -6,13 +6,15 @@ export const useTrade = defineStore('trade', () => {
   let reqCartResult = ref<cartListResult>()
   let cartInfoList = computed(() => reqCartResult.value?.data[0]?.cartInfoList || [])
   // 获取购物车信息
-  const address = ref<Array<address>>()
+  const addressList = ref<Array<address>>()
   const getAddress = async () => {
     let result = await reqAddressInfo();
     if (result.code == 200) {
-      // console.log(result);
-      address.value = result.data
-      // console.log('address', address);
+      console.log(result);
+      addressList.value = result.data
+      console.log('address', addressList);
+    } else {
+      console.log(result);
     }
   }
 
@@ -26,5 +28,5 @@ export const useTrade = defineStore('trade', () => {
     }
   }
 
-  return { address, getAddress, orderInfo, getOrderInfo }
+  return { addressList, getAddress, orderInfo, getOrderInfo }
 })

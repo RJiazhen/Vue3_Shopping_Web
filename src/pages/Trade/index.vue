@@ -7,11 +7,11 @@
       <!-- 收件人信息 -->
       <div class="receive">
         <h5>收件人信息</h5>
-        <div class="address clearFix" v-for="(address, index) in trade.address" :key="index">
+        <div class="address clearFix" v-for="(address, index) in addressList" :key="index">
           <span class="select-btn " :class="{
             selected: address.isDefault == '1'
           }">{{ address.consignee }}</span>
-          <p>
+          <p @click="changeDefault(address)">
             <span class="s1">{{ address.fullAddress }}</span>
             <span class="s2">{{ address.phoneNum }}</span>
             <span class="s3" v-show="address.isDefault == '1'">默认地址</span>
@@ -109,8 +109,8 @@
       <div class="price">应付金额:　<span>¥5399.00</span></div>
       <div class="receiveInfo">
         寄送至:
-        <span>北京市昌平区宏福科技园综合楼6层</span>
-        收货人：<span>张三</span>
+        <span>{{defaultAddress.fullAddress}}</span>
+        收货人：<span>{{defaultAddress.consignee}}</span>
         <span>15010658793</span>
       </div>
     </div>
@@ -123,14 +123,31 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useTrade } from "@/stores/trade"
+import { computed } from '@vue/reactivity';
 
 const trade = useTrade()
 // #region 获取用户地址信息
-const address = []
+const addressList = ref<Array<address>>()
 onMounted(() => {
+  console.log('mounted');
   trade.getAddress()
+  console.log(trade.addressList);
+  addressList.value = trade.addressList
+})
+// #endregion
+
+// #region 修改默认地址
+const changeDefault = (address: address) => {
+  addressList.value.forEach(item => {
+    item.isDefault = '0'
+  });
+  address.isDefault = '1'
+}
+// 默认地址
+const defaultAddress = computed(() => {
+  return addressList.value.find(item => item.isDefault == '1')
 })
 // #endregion
 
@@ -140,6 +157,7 @@ onMounted(() => {
   trade.getOrderInfo()
 })
 // #endregion
+
 
 </script>
 
