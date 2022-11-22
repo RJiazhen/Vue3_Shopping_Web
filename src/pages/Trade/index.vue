@@ -7,28 +7,14 @@
       <!-- 收件人信息 -->
       <div class="receive">
         <h5>收件人信息</h5>
-        <div class="address clearFix">
-          <span class="select-btn selected">张三</span>
+        <div class="address clearFix" v-for="(address, index) in trade.address" :key="index">
+          <span class="select-btn " :class="{
+            selected: address.isDefault == '1'
+          }">{{ address.consignee }}</span>
           <p>
-            <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-            <span class="s2">15010658793</span>
-            <span class="s3">默认地址</span>
-          </p>
-        </div>
-        <div class="address clearFix">
-          <span class=" select-btn selected">李四</span>
-          <p>
-            <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-            <span class="s2">13590909098</span>
-            <span class="s3">默认地址</span>
-          </p>
-        </div>
-        <div class="address clearFix">
-          <span class="select-btn selected">王五</span>
-          <p>
-            <span class="s1">北京市昌平区宏福科技园综合楼6层</span>
-            <span class="s2">18012340987</span>
-            <span class="s3">默认地址</span>
+            <span class="s1">{{ address.fullAddress }}</span>
+            <span class="s2">{{ address.phoneNum }}</span>
+            <span class="s3" v-show="address.isDefault == '1'">默认地址</span>
           </p>
         </div>
       </div>
@@ -88,18 +74,20 @@
           </ul>
         </div>
       </div>
+      <!-- 买家留言 -->
       <div class="bbs">
         <h5>买家留言：</h5>
         <textarea placeholder="  建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
-
       </div>
       <div class="line"></div>
+      <!-- 发票信息 -->
       <div class="bill">
         <h5>发票信息：</h5>
         <div>普通发票（电子） 个人 明细</div>
         <h5>使用优惠/抵用</h5>
       </div>
     </div>
+    <!-- 总价计算 -->
     <div class="money clearFix">
       <ul>
         <li>
@@ -116,6 +104,7 @@
         </li>
       </ul>
     </div>
+    <!-- 应付金额和地址 -->
     <div class="trade">
       <div class="price">应付金额:　<span>¥5399.00</span></div>
       <div class="receiveInfo">
@@ -125,6 +114,7 @@
         <span>15010658793</span>
       </div>
     </div>
+    <!-- 提交订单按钮 -->
     <div class="sub clearFix">
       <a href="##" class="subBtn">提交订单</a>
 
@@ -133,6 +123,23 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { useTrade } from "@/stores/trade"
+
+const trade = useTrade()
+// #region 获取用户地址信息
+const address = []
+onMounted(() => {
+  trade.getAddress()
+})
+// #endregion
+
+// #region 获取商品清单信息
+const orderInfo = {}
+onMounted(() => {
+  trade.getOrderInfo()
+})
+// #endregion
 
 </script>
 
@@ -194,7 +201,7 @@
         position: absolute;
         right: 0;
         bottom: 0;
-        background: url(../images/choosed.png) no-repeat;
+        background: url(./images/choosed.png) no-repeat;
       }
 
       .select-btn.selected {
@@ -281,7 +288,7 @@
       // 商品清单
       .detail {
         background: #feedef;
-        padding:0 15px;
+        padding: 0 15px;
         margin: 2px auto 0;
 
         h5 {
