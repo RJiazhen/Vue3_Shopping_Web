@@ -141,3 +141,29 @@ interface userInfo {
   status: number
   userLevel: null | number
 }
+
+// 用户地址数据类型
+interface address {
+  consignee: string
+  fullAddress: string
+  id: number
+  isDefault: "0"|"1"
+  phoneNum: string
+  provinceId: number
+  regionId: number
+  userAddress: string
+  userId: number
+}
+
+// 订单信息类型
+interface orderInfo {
+  activityReduceAmount: number
+  couponInfoList: Array<any>
+  detailArrayList: Array<object>
+  orderDetailVoList: Array<object>
+  originalTotalAmount: number
+  totalAmount: number
+  totalNum: number
+  tradeNo: string
+  userAddressList: Array<address>
+}
