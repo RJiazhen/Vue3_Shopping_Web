@@ -63,7 +63,7 @@
       <!-- 买家留言 -->
       <div class="bbs">
         <h5>买家留言：</h5>
-        <textarea placeholder="  建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
+        <textarea placeholder="  建议留言前先与商家沟通确认" class="remarks-cont" v-model="msg"></textarea>
       </div>
       <div class="line"></div>
       <!-- 发票信息 -->
@@ -147,6 +147,10 @@ onMounted(() => {
   trade.getOrderInfo()
   console.log('list', detailArrayList);
 })
+// #endregion
+
+// #region 买家留言系统
+const msg = ref('')
 // #endregion
 
 </script>
