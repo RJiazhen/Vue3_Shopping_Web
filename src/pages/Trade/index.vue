@@ -40,34 +40,20 @@
             <p>配送时间：预计8月10日（周三）09:00-15:00送达</p>
           </div>
         </div>
+        <!-- 商品清单 -->
         <div class="detail">
           <h5>商品清单</h5>
-          <ul class="list clearFix">
+          <ul class="list clearFix" v-for="(detailArray, index) in detailArrayList" :key="detailArray.skuId">
             <li>
-              <img src="./images/goods.png" alt="">
+              <img :src="detailArray.imgUrl">
             </li>
             <li>
               <p>
-                Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
+                {{ detailArray.skuName }}</p>
               <h4>7天无理由退货</h4>
             </li>
             <li>
-              <h3>￥5399.00</h3>
-            </li>
-            <li>X1</li>
-            <li>有货</li>
-          </ul>
-          <ul class="list clearFix">
-            <li>
-              <img src="./images/goods.png" alt="">
-            </li>
-            <li>
-              <p>
-                Apple iPhone 6s (A1700) 64G 玫瑰金色 移动联通电信4G手机硅胶透明防摔软壳 本色系列</p>
-              <h4>7天无理由退货</h4>
-            </li>
-            <li>
-              <h3>￥5399.00</h3>
+              <h3>￥{{ detailArray.orderPrice }}</h3>
             </li>
             <li>X1</li>
             <li>有货</li>
@@ -109,8 +95,8 @@
       <div class="price">应付金额:　<span>¥5399.00</span></div>
       <div class="receiveInfo">
         寄送至:
-        <span>{{defaultAddress.fullAddress}}</span>
-        收货人：<span>{{defaultAddress.consignee}}</span>
+        <span>{{ defaultAddress.fullAddress }}</span>
+        收货人：<span>{{ defaultAddress.consignee }}</span>
         <span>15010658793</span>
       </div>
     </div>
@@ -138,7 +124,8 @@ onMounted(() => {
 })
 // #endregion
 
-// #region 修改默认地址
+// #region 默认地址与修改方法
+// 修改默认地址
 const changeDefault = (address: address) => {
   addressList.value.forEach(item => {
     item.isDefault = '0'
@@ -147,17 +134,20 @@ const changeDefault = (address: address) => {
 }
 // 默认地址
 const defaultAddress = computed(() => {
-  return addressList.value.find(item => item.isDefault == '1')
+  return addressList.value?.find(item => item.isDefault == '1') || <address>{}
 })
 // #endregion
 
-// #region 获取商品清单信息
-const orderInfo = {}
+// #region 订单信息
+const detailArrayList = computed((): orderInfo["detailArrayList"] => {
+  // console.log('list', trade.orderInfo.detailArrayList);
+  return trade.orderInfo?.detailArrayList || <orderInfo['detailArrayList']>[]
+})
 onMounted(() => {
   trade.getOrderInfo()
+  console.log('list', detailArrayList);
 })
 // #endregion
-
 
 </script>
 
@@ -316,9 +306,14 @@ onMounted(() => {
         .list {
           display: flex;
           justify-content: space-between;
+          height: 100px;
 
           li {
             line-height: 30px;
+
+            img {
+              height: 90px;
+            }
 
             p {
 

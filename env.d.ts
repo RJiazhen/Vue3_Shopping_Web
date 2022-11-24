@@ -147,7 +147,7 @@ interface address {
   consignee: string
   fullAddress: string
   id: number
-  isDefault: "0"|"1"
+  isDefault: "0" | "1"
   phoneNum: string
   provinceId: number
   regionId: number
@@ -159,7 +159,26 @@ interface address {
 interface orderInfo {
   activityReduceAmount: number
   couponInfoList: Array<any>
-  detailArrayList: Array<object>
+  detailArrayList: Array<{
+    activityRule: any
+    couponInfoList: any
+    createTime: any
+    hasStock: any
+    id: any
+    imgUrl: string
+    orderId: any
+    orderPrice: number
+    refundStatus: string
+    refundStatusString: string
+    skuId: number
+    skuName: string
+    skuNum: number
+    sourceId: number
+    sourceType: string
+    splitActivityAmount: any
+    splitCouponAmount: any
+    splitTotalAmount: any
+  }>,
   orderDetailVoList: Array<object>
   originalTotalAmount: number
   totalAmount: number
