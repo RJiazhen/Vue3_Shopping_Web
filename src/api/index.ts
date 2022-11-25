@@ -49,3 +49,6 @@ export const reqAddressInfo = () => request({ url: '/user/userAddress/auth/findU
 
 // 获取商品清单
 export const reqOrderInfo = () => request({ url: '/order/auth/trade', method: 'get' })
+
+// 提交订单
+export const reqSubmitOrder = (tradeNo, data) => request({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, data, method: 'post' })

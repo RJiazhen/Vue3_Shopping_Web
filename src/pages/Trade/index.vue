@@ -102,8 +102,7 @@
     </div>
     <!-- 提交订单按钮 -->
     <div class="sub clearFix">
-      <a href="##" class="subBtn">提交订单</a>
-
+      <a @click="submitOrder" class="subBtn">提交订单</a>
     </div>
   </div>
 </template>
@@ -112,14 +111,16 @@
 import { onMounted, ref } from 'vue';
 import { useTrade } from "@/stores/trade"
 import { computed } from '@vue/reactivity';
+import { useRouter } from "vue-router"
+import { reqSubmitOrder } from "@/api/index" // 直接在组件内提交请求，而不是通过store
+
+const router = useRouter()
 
 const trade = useTrade()
 // #region 获取用户地址信息
 const addressList = ref<Array<address>>()
 onMounted(() => {
-  console.log('mounted');
   trade.getAddress()
-  console.log(trade.addressList);
   addressList.value = trade.addressList
 })
 // #endregion
@@ -140,17 +141,43 @@ const defaultAddress = computed(() => {
 
 // #region 订单信息
 const detailArrayList = computed((): orderInfo["detailArrayList"] => {
-  // console.log('list', trade.orderInfo.detailArrayList);
   return trade.orderInfo?.detailArrayList || <orderInfo['detailArrayList']>[]
 })
 onMounted(() => {
   trade.getOrderInfo()
-  console.log('list', detailArrayList);
 })
 // #endregion
 
 // #region 买家留言系统
 const msg = ref('')
+// #endregion
+
+// #region 提交订单
+const submitOrder = async () => {
+  // 交易编码
+  let tradeNo = trade.orderInfo.tradeNo || Number
+  // 交易数据
+  let data = {
+    consignee: defaultAddress.value.consignee, // 收件人姓名
+    consigneeTel: defaultAddress.value.phoneNum, // 收件人电话
+    deliverAddress: defaultAddress.value.fullAddress, // 收件地址
+    paymentWay: "ONLINE", //支付方式
+    orderComment: msg.value, // 买家留言
+    orderDetailList: detailArrayList.value // 商品列表
+  }
+
+  let result = await reqSubmitOrder(tradeNo, data)
+  // 提交订单成功
+  if (result.code == 200) {
+    // 订单编号
+    let orderId = result.data
+    router.push({ name: 'pay', query: { orderId: orderId } })
+  }
+  // 提交订单失败
+  else {
+    alert(result.data)
+  }
+}
 // #endregion
 
 </script>
