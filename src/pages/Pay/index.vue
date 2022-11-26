@@ -7,8 +7,8 @@
           <span class="success-info">订单提交成功，请您及时付款，以便尽快为您发货~~</span>
         </h4>
         <div class="paymark">
-          <span class="fl">请您在提交订单<em class="orange time">4小时</em>之内完成支付，超时订单会自动取消。订单号：<em>145687</em></span>
-          <span class="fr"><em class="lead">应付金额：</em><em class="orange money">￥17,654</em></span>
+          <span class="fl">请您在提交订单<em class="orange time">4小时</em>之内完成支付，超时订单会自动取消。订单号：<em>{{ orderId }}</em></span>
+          <span class="fr"><em class="lead">应付金额：</em><em class="orange money">￥{{ payInfo.totalFee }}</em></span>
         </div>
       </div>
       <div class="checkout-info">
@@ -65,7 +65,8 @@
         <div class="hr"></div>
 
         <div class="submit">
-          <a class="btn" href="paysuccess.html" target="_blank">立即支付</a>
+
+          <a class="btn" @click="openPayBox()">立即支付</a>
         </div>
         <div class="otherpay">
           <div class="step-tit">
@@ -82,6 +83,56 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from "vue"
+import { useRoute } from "vue-router"
+import { reqPayInfo } from "@/api/index"
+import { ElMessageBox } from 'element-plus'
+
+import QRCode from "qrcode"
+
+const route = useRoute()
+
+const orderId = route.query.orderId
+// #region 获取支付信息部分
+const payInfo = ref<payInfo>({})
+onMounted(async () => {
+  let result = await reqPayInfo(orderId)
+  if (result.code == 200) {
+    console.log('result', result);
+    payInfo.value = result.data
+    console.log(payInfo.value);
+  }
+  else {
+    console.log('fail', result);
+  }
+})
+// #endregion
+
+// #region 支付窗口
+const openPayBox = async () => {
+  // 生成二维码图片地址
+  let url = await QRCode.toDataURL(payInfo.value.codeUrl)
+  // console.log(url);
+  ElMessageBox.alert(
+    `<img src=${url} />`,
+    '请使用微信支付',
+    {
+      dangerouslyUseHTMLString: true,
+      // 中间布局
+      center: true,
+      // 显示取消按钮
+      showCancelButton: true,
+      // 取消按钮的文本内容
+      cancelButtonText: '支付遇到问题',
+      // 确认按钮的文本内容
+      confirmButtonText: '已支付成功',
+      // 不显示右上角的X号
+      showClose: false,
+    }
+  )
+}
+// #endregion
+
 
 </script>
 

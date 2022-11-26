@@ -186,3 +186,11 @@ interface orderInfo {
   tradeNo: string
   userAddressList: Array<address>
 }
+
+// 支付信息
+interface payInfo {
+  codeUrl: string,
+  orderId: number,
+  resultCode: string,
+  totalFee: number,
+}
