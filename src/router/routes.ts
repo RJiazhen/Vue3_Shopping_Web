@@ -9,6 +9,7 @@ import Cart from "@/pages/Cart/index.vue"
 import Trade from "@/pages/Trade/index.vue"
 import Pay from "@/pages/Pay/index.vue"
 import PaySuccess from "@/pages/PaySuccess/index.vue"
+import Center from "@/pages/Center/index.vue"
 
 
 export default [
@@ -23,5 +24,6 @@ export default [
   { path: '/trade', name: 'trade', component: Trade, meta: { showFooter: true } },
   { path: '/pay', name: 'pay', component: Pay, meta: { showFooter: true } },
   { path: '/paysuccess', name: 'paysuccess', component: PaySuccess, meta: { showFooter: true } },
+  { path: '/center', name: 'center', component: Center, meta: { showFooter: true } },
   { path: '/:pathMatch(.*)', redirect: '/' } // 当上述路径均未匹配时则跳转到/
 ]

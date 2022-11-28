@@ -38,7 +38,7 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',
     port: 3000,
-    open: '/cart',
+    open: '/center',
     // 配置代理跨域
     proxy: {
       '/api': {
