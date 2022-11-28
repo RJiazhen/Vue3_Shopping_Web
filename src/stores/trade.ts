@@ -10,11 +10,8 @@ export const useTrade = defineStore('trade', () => {
   const getAddress = async () => {
     let result = await reqAddressInfo();
     if (result.code == 200) {
-      console.log(result);
       addressList.value = result.data
-      console.log('address', addressList);
     } else {
-      console.log(result);
     }
   }
 
@@ -24,7 +21,6 @@ export const useTrade = defineStore('trade', () => {
     let result = await reqOrderInfo();
     if (result.code == 200) {
       orderInfo.value = result.data
-      console.log('order', orderInfo);
     }
   }
 
