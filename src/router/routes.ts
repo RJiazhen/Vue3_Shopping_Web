@@ -10,6 +10,9 @@ import Trade from "@/pages/Trade/index.vue"
 import Pay from "@/pages/Pay/index.vue"
 import PaySuccess from "@/pages/PaySuccess/index.vue"
 import Center from "@/pages/Center/index.vue"
+// Center下面的二级路由
+import myOrder from "@/pages/Center/myOrder/index.vue"
+import groupOrder from "@/pages/Center/groupOrder/index.vue"
 
 
 export default [
@@ -24,6 +27,13 @@ export default [
   { path: '/trade', name: 'trade', component: Trade, meta: { showFooter: true } },
   { path: '/pay', name: 'pay', component: Pay, meta: { showFooter: true } },
   { path: '/paysuccess', name: 'paysuccess', component: PaySuccess, meta: { showFooter: true } },
-  { path: '/center', name: 'center', component: Center, meta: { showFooter: true } },
+  {
+    path: '/center', name: 'center', component: Center, meta: { showFooter: true },
+    children: [
+      { path: 'myorder', component: myOrder },
+      { path: 'grouporder', component: groupOrder },
+      { path: '/center', redirect: '/center/myorder' }
+    ]
+  },
   { path: '/:pathMatch(.*)', redirect: '/' } // 当上述路径均未匹配时则跳转到/
 ]
