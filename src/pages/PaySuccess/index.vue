@@ -21,9 +21,6 @@
 </script>
 
 <style scoped lang="scss">
-a:hover{
-  color: #fff;
-}
 .paysuccess {
   margin: 20px auto;
   padding: 25px;
@@ -70,11 +67,17 @@ a:hover{
           line-height: 22px;
           text-decoration: none;
 
+
+
           &.btn-look {
             margin-right: 13px;
             color: #fff;
             background-color: #e1251b;
             border: 1px solid #e1251b;
+
+            &:hover {
+              color: #fff !important;
+            }
           }
 
           &.btn-goshop {
