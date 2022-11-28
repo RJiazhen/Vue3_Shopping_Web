@@ -84,13 +84,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { useRoute } from "vue-router"
-import { reqPayInfo } from "@/api/index"
+import { useRoute, useRouter } from "vue-router"
+import { reqPayInfo, reqPayStatus } from "@/api/index"
 import { ElMessageBox } from 'element-plus'
 
 import QRCode from "qrcode"
 
 const route = useRoute()
+const router = useRouter()
 
 const orderId = route.query.orderId
 // #region 获取支付信息部分
@@ -98,9 +99,9 @@ const payInfo = ref<payInfo>({})
 onMounted(async () => {
   let result = await reqPayInfo(orderId)
   if (result.code == 200) {
-    console.log('result', result);
+    // console.log('result', result);
     payInfo.value = result.data
-    console.log(payInfo.value);
+    // console.log(payInfo.value);
   }
   else {
     console.log('fail', result);
@@ -109,10 +110,13 @@ onMounted(async () => {
 // #endregion
 
 // #region 支付窗口
+let timer = null
+let payStatus: number
+
 const openPayBox = async () => {
   // 生成二维码图片地址
   let url = await QRCode.toDataURL(payInfo.value.codeUrl)
-  // console.log(url);
+  // 弹出框配置
   ElMessageBox.alert(
     `<img src=${url} />`,
     '请使用微信支付',
@@ -128,10 +132,55 @@ const openPayBox = async () => {
       confirmButtonText: '已支付成功',
       // 不显示右上角的X号
       showClose: false,
+      // 点击取消或确认按钮时触发
+      beforeClose: (type, instance, done) => {
+        // 如果点击的是“支付遇到问题”按钮
+        if (type == 'cancel') {
+          // 停止支付状态请求
+          clearInterval(timer)
+          timer = null
+          alert('请联系管理员')
+          // 关闭弹出框
+          done()
+        }
+        // 如果点击的是“支付成功”按钮
+        else {
+          // 判断确实是支付成功了（开发阶段为了方便暂时不判断支付状态的code）
+          // if (payStatus == 200) {
+            // 停止支付状态请求
+            clearInterval(timer)
+            timer = null
+            alert('请联系管理员')
+            // 关闭弹出框
+            done()
+            // 跳转到下一个路由
+            router.push({ name: 'paysuccess' })
+          // }
+        }
+      }
     }
   )
+  // 获取支付状态
+  if (!timer) {
+    // 每秒发送一次状态请求，确认是否支付成功
+    timer = setInterval(async () => {
+      let result = await reqPayInfo(orderId)
+      // console.log(result);
+      // 如果支付成功
+      if (result.code == 200) {
+        clearInterval(timer)
+        timer = null
+        // 保存code
+        payStatus = result.code
+        ElMessageBox.close()
+        // 跳转到下一个路由
+        router.push({ name: 'paysuccess' })
+      }
+    }, 1000);
+  }
 }
 // #endregion
+
 
 
 </script>
