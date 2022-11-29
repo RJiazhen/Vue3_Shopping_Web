@@ -194,3 +194,63 @@ interface payInfo {
   resultCode: string,
   totalFee: number,
 }
+
+// 订单数据
+interface myOrder {
+  current: number
+  pages: number
+  records: Array<{
+    activityReduceAmount: any
+    consignee: string
+    consigneeTel: string
+    couponAmount: any
+    couponInfo: any
+    createTime: string
+    deliveryAddress: string
+    expireTime: string
+    feightFee: any
+    feightFeeReduce: any
+    id: 16885
+    imgUrl: any
+    operateTime: any
+    orderComment: string
+    orderDetailList: Array<{
+      activityRule: any
+      couponInfoList: any
+      createTime: string
+      hasStock: any
+      id: number
+      imgUrl: string
+      orderId: number
+      orderPrice: number
+      refundStatus: string
+      refundStatusString: string
+      skuId: number
+      skuName: string
+      skuNum: number
+      sourceId: number
+      sourceType: string
+      splitActivityAmount: number
+      splitCouponAmount: number
+      splitTotalAmount: number
+    }>
+    orderDetailVoList: any
+    orderStatus: string
+    orderStatusName: string
+    originalTotalAmount: any
+    outTradeNo: string
+    parentOrderId: any
+    paymentWay: string
+    processStatus: string
+    provinceId: any
+    refundableTime: any
+    totalAmount: number
+    trackingNo: any
+    tradeBody: string
+    userId: number
+    wareId: any
+  }>
+  searchCount: true
+  size: number
+  total: number
+}

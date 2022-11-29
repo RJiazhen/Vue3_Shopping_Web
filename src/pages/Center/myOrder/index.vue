@@ -21,138 +21,56 @@
         </table>
       </div>
       <div class="orders">
-
-        <table class="order-item">
+        <!-- 每个订单 -->
+        <table class="order-item" v-for="(order, index) in myOrder.records" :key="order.id">
           <thead>
             <tr>
               <th colspan="5">
-                <span class="ordertitle">2017-02-11 11:59　订单编号：7867473872181848 <span class="pull-right delete"><img
-                      src="../images/delete.png"></span></span>
+                <span class="ordertitle">{{ order.createTime }}　订单编号：{{ order.outTradeNo }} <span
+                    class="pull-right delete"><img src="../images/delete.png"></span></span>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!-- 订单中的每个商品 -->
+            <tr v-for="(good, index) in order.orderDetailList" :key="good.id">
               <td width="60%">
                 <div class="typographic">
-                  <img src="../images/goods.png">
-                  <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
+                  <img :src="good.imgUrl">
+                  <RouterLink :to="`/detail/${good.skuId}`" target="_blank" class="block-text">{{ good.skuName }}
+                  </RouterLink>
                   <span>x1</span>
                   <a href="#" class="service">售后申请</a>
                 </div>
               </td>
-              <td rowspan="2" width="8%" class="center">小丽</td>
-              <td rowspan="2" width="13%" class="center">
+              <!-- 公共部分 -->
+              <td :rowspan="order.orderDetailList.length" v-if="index == 0" width="8%" class="center">{{ order.consignee
+              }}</td>
+              <td :rowspan="order.orderDetailList.length" v-if="index == 0" width="13%" class="center">
                 <ul class="unstyled">
-                  <li>总金额¥138.00</li>
+                  <li>总金额<br />¥{{ order.totalAmount }}</li>
                   <li>在线支付</li>
-
                 </ul>
               </td>
-              <td rowspan="2" width="8%" class="center">
-                <a href="#" class="btn">已完成 </a>
+              <td :rowspan="order.orderDetailList.length" v-if="index == 0" width="8%" class="center">
+                <a href="#" class="btn">{{ order.orderStatusName }} </a>
               </td>
-              <td rowspan="2" width="13%" class="center">
+              <td :rowspan="order.orderDetailList.length" v-if="index == 0" width="13%" class="center">
                 <ul class="unstyled">
                   <li>
                     <a href="mycomment.html" target="_blank">评价|晒单</a>
                   </li>
-
                 </ul>
-              </td>
-            </tr>
-            <tr>
-              <td width="50%">
-                <div class="typographic">
-                  <img src="../images/goods.png">
-                  <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                  <span>x1</span>
-                  <a href="#" class="service">售后申请</a>
-                </div>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <table class="order-item">
-          <thead>
-            <tr>
-              <th colspan="5">
-                <span class="ordertitle">2017-02-11 11:59　订单编号：7867473872181848 <span class="pull-right delete"><img
-                      src="../images/delete.png"></span></span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td width="60%">
-                <div class="typographic">
-                  <img src="../images/goods.png">
-                  <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                  <span>x1</span>
-                  <a href="#" class="service">售后申请</a>
-                </div>
-              </td>
-              <td rowspan="2" width="8%" class="center">小丽</td>
-              <td rowspan="2" width="13%" class="center">
-                <ul class="unstyled">
-                  <li>总金额¥138.00</li>
-                  <li>在线支付</li>
-
-                </ul>
-              </td>
-              <td rowspan="2" width="8%" class="center">
-                <a href="#" class="btn">已完成 </a>
-              </td>
-              <td rowspan="2" width="13%" class="center">
-                <ul class="unstyled">
-                  <li>
-                    <a href="mycomment.html" target="_blank">评价|晒单</a>
-                  </li>
-
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td width="50%">
-                <div class="typographic">
-                  <img src="../images/goods.png">
-                  <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                  <span>x1</span>
-                  <a href="#" class="service">售后申请</a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
       <div class="choose-order">
-        <div class="pagination">
-          <ul>
-            <li class="prev disabled">
-              <a href="javascript:">«上一页</a>
-            </li>
-            <li class="page actived">
-              <a href="javascript:">1</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">2</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">3</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">4</a>
-            </li>
-
-            <li class="next disabled">
-              <a href="javascript:">下一页»</a>
-            </li>
-          </ul>
-          <div>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;共2页&nbsp;</span>
-          </div>
-        </div>
+        <!-- 分页器 -->
+        <Pagination :pageNo="page" :pageSize="limit" :continues="5" :totalPages="myOrder.pages" @getPageNo="getPageNo">
+        </Pagination>
       </div>
     </div>
     <!--猜你喜欢-->
@@ -219,6 +137,39 @@
 </template>
 
 <script setup lang="ts">
+import { reqMyOrderList } from "@/api/index"
+import { onMounted, ref } from "vue"
+import Pagination from "@/components/Pagination/index.vue"
+
+// #region 订单数据
+const page = ref(1) // 页码
+const limit = ref(3) // 每页数据数量
+const myOrder = ref<myOrder>({}) // 订单数据
+// 获取订单数据的方法
+const getMyOrderList = async () => {
+  let result = await reqMyOrderList(page.value, limit.value)
+  if (result.code == 200) {
+    console.log('result', result);
+    myOrder.value = result.data
+  }
+  else {
+    console.log('fail', result);
+
+  }
+}
+// 挂载时获取订单数据
+onMounted(() => {
+  getMyOrderList()
+})
+// #endregion
+
+// #region 分页器
+const getPageNo = (pageNum) => {
+  page.value = pageNum
+  getMyOrderList()
+}
+// #endregion
+
 </script>
 
 <style scoped lang="scss">
@@ -324,9 +275,11 @@
           }
 
           .typographic {
+            display: flex;
+
             img {
-              float: left;
               margin-right: 10px;
+              width: 85px;
             }
 
             a {
@@ -335,13 +288,17 @@
               max-width: 250px;
               color: #e1251b;
 
+              &.block-text {
+                display: block;
+                width: 60%;
+              }
+
               &.service {
                 color: #666;
               }
             }
 
             span {
-              float: left;
               min-width: 80px;
               max-width: 250px;
               text-align: center;

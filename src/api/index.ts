@@ -58,3 +58,6 @@ export const reqPayInfo = (orderId) => request({ url: `/payment/weixin/createNat
 
 // 获取支付订单状态
 export const reqPayStatus = (orderId) => request({ url: `/payment/weixin/queryPayStatus/${orderId}`, method: 'get' })
+
+// 获取个人订单数据
+export const reqMyOrderList = (page, limit) => request({ url: `/order/auth/${page}/${limit}`, method: 'get' })
