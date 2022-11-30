@@ -55,9 +55,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
+import { useRoute } from "vue-router"
+
 import { useUser } from "@/stores/user"
 import router from "@/router";
-
+const route = useRoute()
 const user = useUser()
 // 手机号
 const phone = ref<number>()
@@ -67,7 +69,10 @@ const password = ref<string>()
 const userLogin = () => {
   try {
     (phone && password) && user.userLogin({ phone: phone.value, password: password.value })
-    router.push({ name: 'home' })
+    // 登录成功后判断路径中是否有重定向的query参数，如果有则跳转到对应的地址
+    let toPath = route.query.redirect || '/home'
+    console.log('toPath', toPath);
+    router.push({ path: toPath })
   } catch (error) {
     alert(error.message)
   }
@@ -205,6 +210,10 @@ const userLogin = () => {
           height: 36px;
           margin-top: 25px;
           outline: none;
+
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
 

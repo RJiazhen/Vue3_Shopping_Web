@@ -1,5 +1,5 @@
 // 引入Vue-router
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, useRoute } from 'vue-router'
 import routes from '@/router/routes'
 import { useUser } from "@/stores/user"
 
@@ -16,16 +16,17 @@ router.beforeEach(async (to, from) => {
   const user = useUser()
   let token = user.token
   let userName = user?.userInfo?.name
+  // 已经登录的情况下
   if (token) {
-    // 已经登录的情况下
-    if (to.name == 'login') {
     // 想进入登录页面则直接重定向到主页
+    if (to.name == 'login') {
       return { name: 'home' }
     }
-    // 如果去其他页面，则先判断是否已经有用户信息了
+    // 如果去其他页面
     else {
+      console.log('others');
+      // 如果没有用户名则先获取用户信息
       if (!userName) {
-        // 如果没有则先获取用户信息
         try {
           await user.getUserInfo()
         } catch (error) {
@@ -34,6 +35,19 @@ router.beforeEach(async (to, from) => {
           return { name: 'login' }
         }
       }
+    }
+  }
+  // 未登录的情况下
+  else {
+    // 如果路径中包括以下字符，则重定向到Login
+    const justLoginPaths = ['trade', 'pay', 'center',]
+    let allowPass = true // 是否放行的变量
+    justLoginPaths.forEach((item) => {
+      to.path.indexOf(item) != -1 ? allowPass = false : null
+    })
+    if (!allowPass) {
+      // 把原先打算去的路径保存在query参数中
+      return { name: 'login', query: { redirect: to.path } }
     }
   }
 })
