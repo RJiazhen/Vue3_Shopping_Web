@@ -33,12 +33,14 @@ export const useUser = defineStore('user', () => {
   // #endregion
 
   // #region 登录功能
-  // token
-  const token = getToken()
+  const token = ref(getToken()) // 用来存储token的变量
   const userLogin = async (user: object) => {
     let result = await reqUserLogin(user)
     if (result.code == 200) {
       setToken(result.data.token)
+      token.value = getToken()
+      // 注意这里getUserInfo()使用的token是存储在user这个store里的，如果不更新这个token则会导致无法正常获取用户信息
+      getUserInfo()
       return 'ok'
     } else {
       return Promise.reject(new Error('failed'))
@@ -51,6 +53,7 @@ export const useUser = defineStore('user', () => {
   const getUserInfo = async () => {
     let result = await reqUserInfo()
     if (result.code == 200) {
+      token.value = getToken()
       userInfo.value = result.data
       return 'ok'
     } else {
@@ -65,8 +68,8 @@ export const useUser = defineStore('user', () => {
     if (result.code == 200) {
       // 清除成功后需要再清楚本地数据
       removeToken()
+      token.value = getToken()
       userInfo.value = <userInfo>{}
-      // setToken(result.data.token)
       return 'ok'
     } else {
       return Promise.reject(new Error('failed'))
