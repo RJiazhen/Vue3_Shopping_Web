@@ -40,7 +40,7 @@ router.beforeEach(async (to, from) => {
   // 未登录的情况下
   else {
     // 如果路径中包括以下字符，则重定向到Login
-    const justLoginPaths = ['trade', 'pay', 'center',]
+    const justLoginPaths = ['center']
     let allowPass = true // 是否放行的变量
     justLoginPaths.forEach((item) => {
       to.path.indexOf(item) != -1 ? allowPass = false : null
