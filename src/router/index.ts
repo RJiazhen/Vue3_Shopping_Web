@@ -10,7 +10,7 @@ const router = createRouter({
     return { top: 0 }
   },
 })
-
+// FIXME 修复添加#后路由无法正常跳转的问题
 // 路由守卫，每次路由跳转时都会执行
 router.beforeEach(async (to, from) => {
   const user = useUser()
