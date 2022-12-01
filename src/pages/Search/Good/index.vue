@@ -2,7 +2,7 @@
   <li class="">
     <div class="list-wrap">
       <div class="p-img">
-        <router-link :to="`/detail/${goodId}`" target="_blank"><img :src="imgSrc" /></router-link>
+        <router-link :to="`/detail/${goodId}`" target="_blank"><img v-lazy="imgSrc" /></router-link>
       </div>
       <div class="price">
         <strong>
