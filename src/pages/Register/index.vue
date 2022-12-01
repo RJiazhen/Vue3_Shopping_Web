@@ -4,35 +4,38 @@
       <span class="go">我有账号，去 <a href="login.html" target="_blank">登陆</a>
       </span>
     </h3>
-    <div class="content">
-      <label>手机号:</label>
-      <input type="text" placeholder="请输入你的手机号" v-model="phone">
-      <span class="error-msg">错误提示信息</span>
-    </div>
-    <div class="content">
-      <label>验证码:</label>
-      <input type="text" placeholder="请输入验证码" v-model="code">
-      <button class="get-code" @click="getCode">获取验证码</button>
-      <span class="error-msg">错误提示信息</span>
-    </div>
-    <div class="content">
-      <label>登录密码:</label>
-      <input type="password" placeholder="请输入你的登录密码" v-model="password">
-      <span class="error-msg">错误提示信息</span>
-    </div>
-    <div class="content">
-      <label>确认密码:</label>
-      <input type="password" placeholder="请输入确认密码" v-model="password1">
-      <span class="error-msg">错误提示信息</span>
-    </div>
-    <div class="controls">
-      <input name="m1" type="checkbox">
-      <span>同意协议并注册《尚品汇用户协议》</span>
-      <span class="error-msg">错误提示信息</span>
-    </div>
-    <div class="btn">
-      <button @click="userRegister">完成注册</button>
-    </div>
+    <Form>
+      <div class="content">
+        <label>手机号:</label>
+        <Field name="phone" type="phone" rules="phone" placeholder="请输入你的手机号" v-model="phone" />
+        <ErrorMessage class="error-msg" name="phone" />
+      </div>
+      <div class="content">
+        <label>验证码:</label>
+        <Field name="code" rules="code" type="text" placeholder="请输入验证码" v-model="code" />
+        <button class="get-code" @click="getCode">获取验证码</button>
+        <ErrorMessage class="error-msg" name="code" />
+      </div>
+      <div class="content">
+        <label>登录密码:</label>
+        <Field name="password" rules="password" type="password" placeholder="请输入你的登录密码" v-model="password" />
+        <ErrorMessage class="error-msg" name="password" />
+      </div>
+      <div class="content">
+        <label>确认密码:</label>
+        <Field name="confirmPassword" rules="confirmed:@password" type="password" placeholder="请输入确认密码"
+          v-model="password1" />
+        <ErrorMessage class="error-msg" name="confirmPassword" />
+      </div>
+      <div class="controls">
+        <Field name="agree" rules="agree" type="checkbox" />
+        <span>同意协议并注册<a>《用户协议》</a></span>
+        <ErrorMessage class="error-msg" name="agree"/>
+      </div>
+      <div class="btn">
+        <button @click="userRegister">完成注册</button>
+      </div>
+    </Form>
   </div>
 </template>
 
@@ -40,6 +43,9 @@
 import { ref } from "vue"
 import { useUser } from "@/stores/user"
 import { useRouter } from "vue-router"
+
+// 引入校验用的插件以及校验规则
+import { Form, Field, ErrorMessage } from "vee-validate"
 
 const user = useUser()
 const router = useRouter()
@@ -75,6 +81,8 @@ const userRegister = async () => {
   }
 }
   // #endregion
+
+
 </script>
 
 <style scoped lang="scss">

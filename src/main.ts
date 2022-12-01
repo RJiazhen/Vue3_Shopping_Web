@@ -9,6 +9,7 @@ import "@/mock/mockServer" // 引入并执行模拟数据的mock
 import './assets/reset.css' //初始化样式
 import VueLazyload from 'vue-lazyload' // 懒加载
 import * as ElementPlusIconsVue from '@element-plus/icons-vue' // Element图标
+import './utils/validateRules'
 
 const app = createApp(App)
 
@@ -30,4 +31,6 @@ app.use(VueLazyload, {
   loading: loadimage,
   attempt: 1
 })
+
+
 app.mount('#app')

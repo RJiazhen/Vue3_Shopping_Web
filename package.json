@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.10",
+    "@vee-validate/rules": "^4.7.3",
     "axios": "^1.1.2",
     "element-plus": "^2.2.23",
     "lodash": "^4.17.21",
@@ -20,6 +21,7 @@
     "qrcode": "^1.5.1",
     "swiper": "^8.4.3",
     "uuid": "^9.0.0",
+    "vee-validate": "^4.7.3",
     "vue": "^3.2.38",
     "vue-lazyload": "^3.0.0-rc.2",
     "vue-router": "^4.1.5"

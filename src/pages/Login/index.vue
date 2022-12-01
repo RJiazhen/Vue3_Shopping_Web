@@ -13,18 +13,17 @@
           </ul>
 
           <div class="content">
-            <form action="##" @submit.prevent>
-
+            <Form action="##" @submit.prevent>
               <div class="input-text clearFix">
                 <i></i>
-                <input type="text" placeholder="手机号" v-model="phone">
-                <span class="error-msg">错误提示信息</span>
+                <Field name="phone" rules="phone" type="text" placeholder="手机号" v-model="phone" />
+                <ErrorMessage class="error-msg" name="phone"></ErrorMessage>
               </div>
 
               <div class="input-text clearFix">
                 <i class="pwd"></i>
-                <input type="password" placeholder="请输入密码" v-model="password">
-                <span class="error-msg">错误提示信息</span>
+                <Field name="password" rules="loginPassword" type="password" placeholder="请输入密码" v-model="password" />
+                <ErrorMessage name="password" class="error-msg" />
               </div>
 
               <div class="setting clearFix">
@@ -36,7 +35,7 @@
               </div>
               <button class="btn" @click="userLogin">登&nbsp;&nbsp;录</button>
 
-            </form>
+            </Form>
             <div class="call clearFix">
               <ul>
                 <li><img src="./images/qq.png" alt=""></li>
@@ -58,6 +57,9 @@ import { ref } from "vue"
 import { useRoute } from "vue-router"
 
 import { useUser } from "@/stores/user"
+// 引入校验用的插件以及校验规则
+import { Form, Field, ErrorMessage } from "vee-validate"
+
 import router from "@/router";
 const route = useRoute()
 const user = useUser()
