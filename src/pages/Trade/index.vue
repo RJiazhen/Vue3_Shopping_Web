@@ -118,7 +118,7 @@ const router = useRouter()
 
 const trade = useTrade()
 // #region 获取用户地址信息
-const addressList = ref<Array<address>>()
+const addressList = ref<Array<address>>([])
 onMounted(() => {
   trade.getAddress()
   addressList.value = trade.addressList
@@ -135,13 +135,13 @@ const changeDefault = (address: address) => {
 }
 // 默认地址
 const defaultAddress = computed(() => {
-  return addressList.value?.find(item => item.isDefault == '1') || <address>{}
+  return addressList.value?.find(item => item.isDefault == '1') || {} as address
 })
 // #endregion
 
 // #region 订单信息
 const detailArrayList = computed((): orderInfo["detailArrayList"] => {
-  return trade.orderInfo?.detailArrayList || <orderInfo['detailArrayList']>[]
+  return trade.orderInfo?.detailArrayList || [] as orderInfo['detailArrayList']
 })
 onMounted(() => {
   trade.getOrderInfo()
