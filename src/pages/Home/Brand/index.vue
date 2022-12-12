@@ -37,10 +37,8 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Brand",
-};
+<script setup lang="ts">
+
 </script>
 <style lang="scss">
 .brand {

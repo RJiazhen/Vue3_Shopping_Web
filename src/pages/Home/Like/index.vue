@@ -55,8 +55,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {};
+<script setup lang="ts">
 </script>
 <style lang="scss">
 .like {

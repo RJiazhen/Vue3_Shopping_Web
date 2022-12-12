@@ -58,7 +58,7 @@
           <h4>京东自营覆盖区县</h4>
           <p>京东已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务</p>
           <router-link to="/">查看详情<el-icon>
-              <ArrowRight style="width: 10px;height: 10px;"/>
+              <ArrowRight style="width: 10px;height: 10px;" />
             </el-icon>
           </router-link>
         </div>
@@ -99,8 +99,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {};
+<script setup lang="ts">
 </script>
 <style lang="scss">
 .footer {

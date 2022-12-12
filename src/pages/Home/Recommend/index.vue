@@ -25,10 +25,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Recommend",
-};
+<script setup lang="ts">
 </script>
 <style lang="scss">
 .today-recommend {
