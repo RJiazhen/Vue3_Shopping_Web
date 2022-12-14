@@ -31,7 +31,6 @@ const props = defineProps<{
   price: number,
   goodId: number
 }>()
-console.log(props);
 </script>
 
 <style scoped lang="scss">

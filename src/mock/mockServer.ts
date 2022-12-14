@@ -14,5 +14,3 @@ Mock.mock('/mock/floors', {
   code: 200,
   data: floors
 })
-
-console.log('mock');

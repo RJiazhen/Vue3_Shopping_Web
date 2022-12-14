@@ -199,7 +199,6 @@ const showText = computed(() => {
 let searchText = ref("");
 onMounted(() => {
   $bus.on('clearKeyword', () => {
-    console.log('clearkw');
     searchText.value = ""
   })
   $bus.emit('clearKeyword')
