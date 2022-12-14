@@ -6,7 +6,7 @@
       <div class="container">
         <div class="province">
           <Location style="width: 12px; height: 12px; margin-right: 8px; color: #F10215" />
-          广西
+          西藏
         </div>
         <div class="typeList">
           <!-- 未登录 -->
@@ -245,6 +245,7 @@ const toSearch = function () {
       overflow: hidden;
 
       .province {
+        width: 50px;
         display: flex;
 
         align-items: center;

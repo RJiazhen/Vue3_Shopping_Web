@@ -1,5 +1,9 @@
 # Vue3_Shopping_Web
 
+这是一个仿京东的电商网站，作为个人学习Vue3相关技术的练习作品
+## 技术栈
+* 
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
