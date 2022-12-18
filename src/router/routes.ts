@@ -2,13 +2,13 @@ import type { RouteLocationNormalized } from 'vue-router'
 
 // 设置一个包含路径对应关系的对象，当需要跳转到对应路径时，来的路径要符合其在对象对应的值
 const allowPath = {
-  '/addcartsuccess': '/detail',
-  '/pay': '/cart',
-  '/paysuccess': '/pay',
-  '/trade': '/cart',
+  'addcartsuccess': 'detail',
+  'pay': 'cart',
+  'paysuccess': 'pay',
+  'trade': 'cart',
 }
 const returnFrom = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  if (from.path != allowPath[to.path]) {
+  if (from.name != allowPath[to.name]) {
     // 这里根据官网的方法返回false无法中断路由跳转，而且会报错，所以读取from.path进行跳转回去
     // return false
     return { path: from.path }
