@@ -407,6 +407,10 @@ const addToCart = async () => {
         width: 700px;
         float: right;
 
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
         .InfoName {
           font-size: 16px;
           line-height: 21px;
@@ -422,7 +426,6 @@ const addToCart = async () => {
 
         .priceArea {
           background: #fee9eb;
-          padding: 7px;
           margin: 13px 0;
 
           .priceArea1 {
@@ -460,26 +463,33 @@ const addToCart = async () => {
 
           .priceArea2 {
             overflow: hidden;
-            line-height: 28px;
+            height: 28px;
             margin-top: 10px;
+            display: flex;
 
             .title {
               margin-right: 15px;
-              float: left;
             }
 
             .fixWidth {
               width: 520px;
-              float: left;
+              display: flex;
 
               .red-bg {
                 background: #c81623;
                 color: #fff;
                 padding: 3px;
+                height: 16px;
+                width: 50px;
+
+                margin-right: 3px;
               }
 
               .t-gray {
+                display: inline-block;
+                text-align: left;
                 color: #999;
+
               }
             }
           }
@@ -494,7 +504,6 @@ const addToCart = async () => {
           .supportArea {
             overflow: hidden;
             line-height: 28px;
-            margin-top: 10px;
 
             .title {
               margin-right: 15px;
@@ -505,6 +514,7 @@ const addToCart = async () => {
               width: 520px;
               float: left;
               color: #999;
+              text-align: left;
             }
           }
         }
