@@ -8,7 +8,7 @@
       <div class="right">
         <div class="news">
           <h4>
-            <em class="fl">京东快报</em>
+            <em class="fl">西西快报</em>
             <span class="fr tip">更多 ></span>
           </h4>
           <div class="clearix"></div>
@@ -283,7 +283,7 @@ home.getBannerList()
 
       .ads {
         width: 100%;
-        height: 125px;
+        height: 107px;
         margin-top: 5px;
         overflow: hidden;
 

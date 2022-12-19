@@ -24,7 +24,6 @@ router.beforeEach(async (to, from) => {
     }
     // 如果去其他页面
     else {
-      console.log('others');
       // 如果没有用户名则先获取用户信息
       if (!userName) {
         try {

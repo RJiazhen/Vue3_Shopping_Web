@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <h3>注册新用户
-      <span class="go">我有账号，去 <a href="login.html" target="_blank">登陆</a>
+      <span class="go">我有账号，去 <Router-link to="login">登陆</Router-link>
       </span>
     </h3>
     <Form>
@@ -30,7 +30,7 @@
       <div class="controls">
         <Field name="agree" rules="agree" type="checkbox" />
         <span>同意协议并注册<a>《用户协议》</a></span>
-        <ErrorMessage class="error-msg" name="agree"/>
+        <ErrorMessage class="error-msg" name="agree" />
       </div>
       <div class="btn">
         <button @click="userRegister">完成注册</button>

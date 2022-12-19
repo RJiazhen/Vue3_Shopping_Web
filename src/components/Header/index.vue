@@ -32,10 +32,10 @@
             <router-link to="/cart">我的购物车</router-link>
           </span>
           <span>
-            <router-link to="/">我的京东</router-link>
+            <router-link to="/">个人中心</router-link>
           </span>
           <span>
-            <router-link to="/">京东会员</router-link>
+            <router-link to="/">会员中心</router-link>
           </span>
           <span>
             <router-link to="/">企业采购</router-link>
@@ -44,7 +44,7 @@
             <router-link to="/">网站导航</router-link>
           </span>
           <span>
-            <router-link to="/">手机京东</router-link>
+            <router-link to="/">手机端</router-link>
           </span>
           <span>
             <router-link to="/">网站无障碍</router-link>
@@ -56,7 +56,7 @@
     <div class="bottom">
       <div :class="showText ? 'logo-n-text' : 'only-logo'">
         <h1>
-          <router-link to="/home" class="logo" title="京东">
+          <router-link to="/home" class="logo" title="西西">
             <img src="./images/logo.png">
           </router-link>
         </h1>
@@ -116,25 +116,22 @@
         <div class="short-cut">
           <ul>
             <li>
-              <router-link to="/">京东五金城</router-link>
-            </li>
-            <li>
-              <router-link to="/">京东超市</router-link>
+              <router-link to="/">西西超市</router-link>
             </li>
             <li>
               <router-link to="/">秒杀</router-link>
             </li>
             <li>
-              <router-link to="/">京东家电</router-link>
+              <router-link to="/">家电卖场</router-link>
             </li>
             <li>
-              <router-link to="/">京东生鲜</router-link>
+              <router-link to="/">生鲜果蔬</router-link>
             </li>
             <li>
               <router-link to="/">优惠券</router-link>
             </li>
             <li>
-              <router-link to="/">PLUS会员</router-link>
+              <router-link to="/">西西会员</router-link>
             </li>
             <li>
               <router-link to="/">拍卖</router-link>
@@ -143,7 +140,7 @@
               <router-link to="/">品牌闪购</router-link>
             </li>
             <li>
-              <router-link to="/">京东云</router-link>
+              <router-link to="/">家装百货</router-link>
             </li>
           </ul>
         </div>
@@ -302,11 +299,10 @@ const toSearch = function () {
       align-items: center;
 
       h1 {
-        display: block;
-
         .logo {
           img {
-            width: 155px;
+            width: 175px;
+            margin: 25px;
           }
         }
       }

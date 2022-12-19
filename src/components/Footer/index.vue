@@ -50,13 +50,11 @@
             <li>夺宝岛</li>
             <li>DIY装机</li>
             <li>延保服务</li>
-            <li>尚品汇E卡</li>
-            <li>尚品汇通信</li>
           </ul>
         </div>
         <div class="footerItem">
-          <h4>京东自营覆盖区县</h4>
-          <p>京东已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务</p>
+          <h4>西西自营覆盖区县</h4>
+          <p>西西已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务</p>
           <router-link to="/">查看详情<el-icon>
               <ArrowRight style="width: 10px;height: 10px;" />
             </el-icon>
@@ -71,9 +69,6 @@
           <li>联系我们
             <span class="space"></span>
           </li>
-          <li>关于我们
-            <span class="space"></span>
-          </li>
           <li>商家入驻
             <span class="space"></span>
           </li>
@@ -81,20 +76,9 @@
             <span class="space"></span>
           </li>
           <li>友情链接
-            <span class="space"></span>
           </li>
-          <li>关于我们
-            <span class="space"></span>
-          </li>
-          <li>营销中心
-            <span class="space"></span>
-          </li>
-          <li>友情链接
-            <span class="space"></span>
-          </li>
-          <li>关于我们</li>
         </ul>
-        <p>京ICP备11041704号</p>
+        <a href="https://beian.miit.gov.cn/">桂ICP备2022005794号-1</a>
       </div>
     </div>
   </div>

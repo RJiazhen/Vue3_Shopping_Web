@@ -3,7 +3,7 @@ import type { RouteLocationNormalized } from 'vue-router'
 // 设置一个包含路径对应关系的对象，当需要跳转到对应路径时，来的路径要符合其在对象对应的值
 const allowPath = {
   'addcartsuccess': ['detail', 'search'],
-  'pay': ['cart'],
+  'pay': ['trade'],
   'paysuccess': ['pay'],
   'trade': ['cart'],
 }

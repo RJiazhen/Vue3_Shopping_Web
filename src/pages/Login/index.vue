@@ -43,7 +43,7 @@
                 <li><img src="./images/ali.png" alt=""></li>
                 <li><img src="./images/weixin.png" alt=""></li>
               </ul>
-              <a href="#" class="register">立即注册</a>
+              <Router-link to="register" class="register">立即注册</Router-link>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ const userLogin = () => {
     (phone && password) && user.userLogin({ phone: phone.value, password: password.value })
     // 登录成功后判断路径中是否有重定向的query参数，如果有则跳转到对应的地址
     let toPath = route.query.redirect || '/home'
-    console.log('toPath', toPath);
+    // console.log('toPath', toPath);
     router.push({ path: toPath })
   } catch (error) {
     alert(error.message)
@@ -84,7 +84,6 @@ const userLogin = () => {
 <style scoped lang="scss">
 .login-wrap {
   height: 487px;
-  background-color: #e93854;
 
   .login {
     width: 1000px;
@@ -103,6 +102,7 @@ const userLogin = () => {
     position: relative;
     padding: 20px;
 
+
     .tab {
 
       li {
@@ -118,7 +118,7 @@ const userLogin = () => {
           font-size: 20px;
           font-weight: 700;
           color: #333;
-          border: 1px solid #ddd;
+          border: 1px solid rgb(206, 205, 205);
           box-sizing: border-box;
           text-decoration: none;
 
@@ -136,7 +136,7 @@ const userLogin = () => {
       width: 380px;
       height: 316px;
       box-sizing: border-box;
-      border: 1px solid #ddd;
+      border: 1px solid rgb(206, 205, 205);
       border-top: none;
       padding: 18px;
 
@@ -153,7 +153,7 @@ const userLogin = () => {
             float: left;
             width: 37px;
             height: 32px;
-            border: 1px solid #ccc;
+            border: 1px solid rgb(206, 205, 205);
             background: url(@/assets/icons.png) no-repeat -10px -201px;
             box-sizing: border-box;
             border-radius: 2px 0 0 2px;
@@ -167,7 +167,7 @@ const userLogin = () => {
             width: 302px;
             height: 32px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
+            border: 1px solid rgb(206, 205, 205);
             border-left: none;
             float: left;
             padding-top: 6px;
