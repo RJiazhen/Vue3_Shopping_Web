@@ -344,11 +344,12 @@ const submitOrder = async () => {
 
             img {
               height: 90px;
+              max-width: 90px;
             }
 
             p {
-
-              margin-bottom: 20px;
+              line-height: 18px;
+              width: 400px;
             }
 
             h4 {
@@ -357,7 +358,6 @@ const submitOrder = async () => {
             }
 
             h3 {
-
               color: #e12228;
             }
           }
