@@ -11,43 +11,43 @@
         <div class="typeList">
           <!-- 未登录 -->
           <span v-if="!userName">
-            <router-link to="/login">你好，请登录</router-link>
+            <a to="/login">你好，请登录</a>
           </span>
           <span class="register" v-if="!userName">
-            <router-link to="/register">免费注册</router-link>
+            <a to="/register">免费注册</a>
           </span>
 
           <!-- 已登录 -->
           <span v-if="userName">
-            <router-link to="/login">{{ userName }}</router-link>
+            <a to="/login">{{ userName }}</a>
           </span>
           <span class="register" v-if="userName">
             <a @click="logout">退出登录</a>
           </span>
 
           <span>
-            <router-link to="/">我的订单</router-link>
+            <a @click="router.push('center')">我的订单</a>
           </span>
           <span>
-            <router-link to="/cart">我的购物车</router-link>
+            <a @click="router.push('cart')">我的购物车</a>
           </span>
           <span>
-            <router-link to="/">个人中心</router-link>
+            <a @click="router.push('center')">个人中心</a>
           </span>
           <span>
-            <router-link to="/">会员中心</router-link>
+            <a @click="router.push('/')">会员中心</a>
           </span>
           <span>
-            <router-link to="/">企业采购</router-link>
+            <a @click="router.push('/')">企业采购</a>
           </span>
           <span>
-            <router-link to="/">网站导航</router-link>
+            <a @click="router.push('/')">网站导航</a>
           </span>
           <span>
-            <router-link to="/">手机端</router-link>
+            <a @click="router.push('/')">手机端</a>
           </span>
           <span>
-            <router-link to="/">网站无障碍</router-link>
+            <a @click="router.push('/')">网站无障碍</a>
           </span>
         </div>
       </div>
@@ -56,9 +56,9 @@
     <div class="bottom">
       <div :class="showText ? 'logo-n-text' : 'only-logo'">
         <h1>
-          <router-link to="/home" class="logo" title="西西">
+          <a to="/home" class="logo" title="西西">
             <img src="./images/logo.png">
-          </router-link>
+          </a>
         </h1>
         <!-- 分类导航 -->
         <div class="text-n-type-nav">
@@ -80,67 +80,67 @@
             <div class="search-recommend">
               <ul>
                 <li>
-                  <router-link to="/">浪琴</router-link>
+                  <a @click="router.push('/')">浪琴</a>
                 </li>
                 <li>
-                  <router-link to="/">镇店电脑</router-link>
+                  <a @click="router.push('/')">镇店电脑</a>
                 </li>
                 <li>
-                  <router-link to="/">保暖服饰</router-link>
+                  <a @click="router.push('/')">保暖服饰</a>
                 </li>
                 <li>
-                  <router-link to="/">爆款手机</router-link>
+                  <a @click="router.push('/')">爆款手机</a>
                 </li>
                 <li>
-                  <router-link to="/">99元11件</router-link>
+                  <a @click="router.push('/')">99元11件</a>
                 </li>
                 <li>
-                  <router-link to="/">企采超市</router-link>
+                  <a @click="router.push('/')">企采超市</a>
                 </li>
                 <li>
-                  <router-link to="/">iphone14</router-link>
+                  <a @click="router.push('/')">iphone14</a>
                 </li>
               </ul>
             </div>
 
           </div>
-          <router-link class="cart" to="/cart">
+          <a class="cart" to="/cart">
             <el-icon style="width: 15px;height:15px; color:#F10215">
               <ShoppingCart />
             </el-icon>
             <span class="cart-count" ref="cart-count">1</span>
             <span>我的购物车</span>
-          </router-link>
+          </a>
         </div>
         <!-- 快捷方式 -->
         <div class="short-cut">
           <ul>
             <li>
-              <router-link to="/">西西超市</router-link>
+              <a @click="router.push('/')">西西超市</a>
             </li>
             <li>
-              <router-link to="/">秒杀</router-link>
+              <a @click="router.push('/')">秒杀</a>
             </li>
             <li>
-              <router-link to="/">家电卖场</router-link>
+              <a @click="router.push('/')">家电卖场</a>
             </li>
             <li>
-              <router-link to="/">生鲜果蔬</router-link>
+              <a @click="router.push('/')">生鲜果蔬</a>
             </li>
             <li>
-              <router-link to="/">优惠券</router-link>
+              <a @click="router.push('/')">优惠券</a>
             </li>
             <li>
-              <router-link to="/">西西会员</router-link>
+              <a @click="router.push('/')">西西会员</a>
             </li>
             <li>
-              <router-link to="/">拍卖</router-link>
+              <a @click="router.push('/')">拍卖</a>
             </li>
             <li>
-              <router-link to="/">品牌闪购</router-link>
+              <a @click="router.push('/')">品牌闪购</a>
             </li>
             <li>
-              <router-link to="/">家装百货</router-link>
+              <a @click="router.push('/')">家装百货</a>
             </li>
           </ul>
         </div>
