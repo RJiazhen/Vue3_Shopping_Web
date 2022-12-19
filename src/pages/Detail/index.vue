@@ -367,9 +367,8 @@ const addToCart = async () => {
   try {
     await detail.addOrUpdateShopCart(route.params.skuId, skuNum.value)
     // 由于数据量过大，放在地址栏不好看，所以使用本次存储进行保存
-    // router.push({ name: 'addcartsuccess', query: { skuInfo: JSON.stringify(detail.skuInfo), skuNum: skuNum.value } })
     sessionStorage.setItem("SKUINFO", JSON.stringify(detail.skuInfo))
-    router.push({ name: 'addcartsuccess', query: {skuNum: skuNum.value } })
+    router.push({ name: 'addcartsuccess', query: { skuNum: skuNum.value } })
   } catch (error) {
     alert(error.message)
   }

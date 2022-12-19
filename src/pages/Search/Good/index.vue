@@ -17,7 +17,7 @@
         <i class="command">已有<span>2000</span>人评价</i>
       </div>
       <div class="operate">
-        <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+        <a class="sui-btn btn-bordered btn-danger" @click="addToCart">加入购物车</a>
         <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
       </div>
     </div>
@@ -25,12 +25,35 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router"
+import { useDetail } from "@/stores/detail"
+const router = useRouter()
+const detail = useDetail()
+
 const props = defineProps<{
   imgSrc: string,
   title: string,
   price: number,
   goodId: number
 }>()
+
+// 点击「加入购物车」按钮
+const addToCart = async () => {
+  try {
+    // 获取商品信息
+    await detail.getGoodsInfo(props.goodId)
+    // 发出添加进购物车的请求
+    await detail.addOrUpdateShopCart(props.goodId.toString(), 1)
+    // 将加入购物车的商品信息存储在session中
+    sessionStorage.setItem("SKUINFO", JSON.stringify(detail.skuInfo))
+    router.push({ name: 'addcartsuccess', query: { skuNum: 1 } })
+  } catch (error) {
+    console.log(error);
+    alert(error.message)
+  }
+}
+
+
 </script>
 
 <style scoped lang="scss">

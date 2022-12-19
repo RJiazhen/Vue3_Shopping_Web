@@ -15,7 +15,6 @@ export const useDetail = defineStore('detail', () => {
     }
   }
 
-  // 添加商品到购物车
   // 先获取临时游客身份
   const uuid_token = getUUID()
   const addOrUpdateShopCart = async (skuId: string, skuNum: number) => {
