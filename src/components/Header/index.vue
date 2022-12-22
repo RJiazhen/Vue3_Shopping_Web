@@ -108,7 +108,7 @@
             <el-icon style="width: 15px;height:15px; color:#F10215">
               <ShoppingCart />
             </el-icon>
-            <span class="cart-count" ref="cart-count">1</span>
+            <span class="cart-count">{{ cartCount }}</span>
             <span>我的购物车</span>
           </a>
         </div>
@@ -155,16 +155,19 @@ import { computed } from "@vue/reactivity";
 import { ref, onMounted, getCurrentInstance, onBeforeUnmount } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import { useUser } from "@/stores/user"
+import { useCart } from "@/stores/cart"
 
 import _ from "lodash"
 
 const router = useRouter()
 const route = useRoute()
+const user = useUser()
+const cart = useCart()
+
 // 全局事件总线
 const $bus = getCurrentInstance().appContext.config.globalProperties.$bus
 
 // #region 展示用户信息
-const user = useUser()
 const userName = computed(() => {
   return user.userInfo?.name
 })
@@ -218,7 +221,16 @@ const toSearch = function () {
   router.push(locations);
 }
 
+// #region 显示购物车中商品数量
+const cartCount = computed(() => {
+  let count = 0
+  cart.cartInfoList.forEach((item) => {
+    count += item.skuNum
+  })
+  return count
+})
 
+//#endregion
 </script>
 <style lang="scss">
 .header {

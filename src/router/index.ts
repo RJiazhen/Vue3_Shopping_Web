@@ -2,6 +2,8 @@
 import { createRouter, createWebHistory, useRoute } from 'vue-router'
 import routes from '@/router/routes'
 import { useUser } from "@/stores/user"
+import { useCart } from "@/stores/cart"
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -10,9 +12,11 @@ const router = createRouter({
     return { top: 0 }
   },
 })
-// FIXME 修复添加#后路由无法正常跳转的问题
+
 // 路由守卫，每次路由跳转时都会执行
 router.beforeEach(async (to, from) => {
+  // 注意这里必须把store变量的建立放在beforeEach里面，
+  // 不然会出现Pinia还没挂载在App上，然后就生成store变量的情况，也会报错提示要引入Pinia
   const user = useUser()
   let token = user.token
   let userName = user?.userInfo?.name
@@ -50,6 +54,13 @@ router.beforeEach(async (to, from) => {
       return { name: 'login', query: { redirect: redirectPath } }
     }
   }
+})
+
+// 全局路由后置钩子
+router.afterEach((to, from) => {
+  // 在路由跳转之后获取购物车商品数量，这样就可以在退出登录后正常更新
+  const cart = useCart()
+  cart.getCartList()
 })
 
 export default router
