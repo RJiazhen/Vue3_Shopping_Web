@@ -11,15 +11,15 @@
         <div class="typeList">
           <!-- 未登录 -->
           <span v-if="!userName">
-            <a to="/login">你好，请登录</a>
+            <a @click="router.push('login')">你好，请登录</a>
           </span>
           <span class="register" v-if="!userName">
-            <a to="/register">免费注册</a>
+            <a @click="router.push('register')"> 免费注册 </a>
           </span>
 
           <!-- 已登录 -->
-          <span v-if="userName">
-            <a to="/login">{{ userName }}</a>
+          <span v-if=" userName">
+            <a @click="router.push('center')">{{ userName }}</a>
           </span>
           <span class="register" v-if="userName">
             <a @click="logout">退出登录</a>
@@ -56,7 +56,7 @@
     <div class="bottom">
       <div :class="showText ? 'logo-n-text' : 'only-logo'">
         <h1>
-          <a to="/home" class="logo" title="西西">
+          <a @click="router.push('/')" class="logo" title="西西">
             <img src="./images/logo.png">
           </a>
         </h1>
@@ -104,7 +104,7 @@
             </div>
 
           </div>
-          <a class="cart" to="/cart">
+          <a class="cart" @click="router.push('cart')">
             <el-icon style="width: 15px;height:15px; color:#F10215">
               <ShoppingCart />
             </el-icon>
