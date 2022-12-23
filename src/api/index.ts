@@ -21,7 +21,9 @@ export const reqGoodsInfo = (skuId) => request({ url: `/item/${skuId}`, method: 
 export const reqAddOrUpdateShopCart = (skuId, skuNum) => request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
 
 // 获取购物车列表数据
-export const reqCartList = () => request({ url: '/cart/cartList', method: 'get' })
+export const reqCartList = () => {
+  return request({ url: '/cart/cartList', method: 'get' })
+}
 
 // 删除购物车商品
 export const reqDeleteCartById = (skuId) => request({ url: `/cart/deleteCart/${skuId}`, method: 'delete' })

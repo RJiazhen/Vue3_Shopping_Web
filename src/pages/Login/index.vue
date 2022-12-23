@@ -68,12 +68,12 @@ const phone = ref<number>()
 // 密码
 const password = ref<string>()
 // 登录回调函数
-const userLogin = () => {
+const userLogin = async() => {
   try {
-    (phone && password) && user.userLogin({ phone: phone.value, password: password.value })
+    // 这里使用异步方法等待登录操作完成了才进行路由的跳转
+    (phone && password) && await user.userLogin({ phone: phone.value, password: password.value })
     // 登录成功后判断路径中是否有重定向的query参数，如果有则跳转到对应的地址
     let toPath = route.query.redirect || '/home'
-    // console.log('toPath', toPath);
     router.push({ path: toPath })
   } catch (error) {
     alert(error.message)

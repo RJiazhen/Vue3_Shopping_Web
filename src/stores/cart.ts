@@ -7,7 +7,7 @@ export const useCart = defineStore('cart', () => {
   let cartInfoList = computed(() => reqCartResult.value?.data[0]?.cartInfoList || [])
   // 获取购物车信息
   const getCartList = async () => {
-    let result = await reqCartList();
+    let result: result | any = await reqCartList();
     if (result.code == 200) {
       reqCartResult.value = result
     }
@@ -15,7 +15,7 @@ export const useCart = defineStore('cart', () => {
 
   // 删除购物车商品
   const deleteCartListBySkuId = async (skuId: number) => {
-    let result = await reqDeleteCartById(skuId);
+    let result: result = await reqDeleteCartById(skuId);
     if (result.code == 200) {
       return 'ok'
     } else {
